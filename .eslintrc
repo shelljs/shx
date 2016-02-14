@@ -1,0 +1,9 @@
+{
+  "extends": "airbnb/legacy",
+  "rules": {
+    "vars-on-top": 0,
+    "spaced-comment": [2, "always", { "markers": ["@", "@include"], "exceptions": ["@"] }],
+    "no-param-reassign": 1,
+    "no-console": 0
+  }
+}

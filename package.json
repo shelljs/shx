@@ -1,0 +1,41 @@
+{
+  "name": "shx",
+  "version": "0.0.1",
+  "description": "Portable Shell Commands for Node",
+  "bin": "cli.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shelljs/shx.git"
+  },
+  "keywords": [
+    "shelljs",
+    "shell",
+    "unix",
+    "bash",
+    "sh",
+    "exec",
+    "cli",
+    "zsh"
+  ],
+  "contributors": [
+    "Ari Porad <ari@ariporad.com> (http://ariporad.com/)",
+    "Nate Fischer <ntfschr@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shelljs/shx/issues"
+  },
+  "homepage": "https://github.com/shelljs/shx#readme",
+  "devDependencies": {
+    "ava": "^0.11.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^5.0.1",
+    "eslint-plugin-react": "^3.16.1"
+  },
+  "dependencies": {
+    "shelljs": "latest"
+  }
+}
