@@ -30,7 +30,7 @@ var failed = false; // If something fails, we want to do everything else, but st
 for (var i = 0; i < cmds.length; ++i) {
   if (!cmds[i]) continue; // If you did foo;bar;baz;
   var cmd = shell[cmds[i][0]];
-  if (!cmd || typeof cmd !== 'function') throw new Error('Error: Invalid ShellJS command: ' + cmd);
+  if (!cmd || typeof cmd !== 'function') throw new Error('Invalid ShellJS command: ' + cmd);
   var ret = cmd.apply(shell, cmds[i].slice(1));
   if (ret && typeof ret.stdout !== 'undefined' && typeof ret.stderr !== 'undefined') {
     if (ret.stdout) console.log(ret.stdout);

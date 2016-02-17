@@ -2,7 +2,7 @@
   "name": "shx",
   "version": "0.0.1",
   "description": "Portable Shell Commands for Node",
-  "bin": "cli.js",
+  "bin": { "shx" : "cli.js"},
   "scripts": {
     "test": "ava"
   },
