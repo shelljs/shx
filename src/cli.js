@@ -8,6 +8,16 @@ var EXIT_CODES = {
   SUCCESS: 0,
 };
 
+var CMD_BLACKLIST = [
+  'cd',
+  'pushd',
+  'popd',
+  'dirs',
+  'set',
+  'exit',
+  'exec',
+];
+
 // This function takes the raw result of a shelljs command and figures out how to print it.
 // Invoke this *REGARDLESS* of what the command returns, it will figure it out.
 function printCmdRet(ret) {
@@ -42,7 +52,11 @@ function shx(argv) {
     if (!cmd || typeof cmd !== 'function') {
       console.error('Error: Invalid ShellJS command: ' + cmd);
       return EXIT_CODES.SHX_ERROR;
+    } else if (CMD_BLACKLIST.indexOf(cmd) > -1) {
+      console.error('Warning: shx ' + cmd + ' is not supported');
+      return EXIT_CODES.SHX_ERROR;
     }
+
     var ret = cmd.apply(shell, cmds[i].slice(1));
     printCmdRet(ret);
     if (shell.error() || (ret && ret.code && ret.code !== 0)) failed = true;
