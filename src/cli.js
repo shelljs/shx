@@ -41,7 +41,7 @@ function shx(argv) {
     return EXIT_CODES.SHX_ERROR;
   }
 
-  var cmds = parseArgs(argv);
+  var cmds = parseArgs(argv.slice(2));
 
   // If something fails, we want to execute all the commands, but still error at the end.
   var failed = false;
@@ -62,12 +62,10 @@ function shx(argv) {
     if (shell.error() || (ret && ret.code && ret.code !== 0)) failed = true;
   }
 
-  if (failed) {
-    return EXIT_CODES.CMD_FAILED;
-  } else {
-    return EXIT_CODES.SUCCESS;
-  }
+  return failed ? EXIT_CODES.CMD_FAILED : EXIT_CODES.SUCCESS;
 }
+
+process.exit(shx(process.argv));
 
 module.exports = shx;
 module.exports._printCmdRet = printCmdRet;
