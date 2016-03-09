@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb/legacy",
+  "extends": "airbnb",
   "rules": {
     "vars-on-top": 0,
     "spaced-comment": [2, "always", { "markers": ["@", "@include"], "exceptions": ["@"] }],
