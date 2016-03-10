@@ -42,7 +42,9 @@ function shx(argv) {
     }
 
     var ret = cmd.apply(shell, cmds[i].slice(1));
-    printCmdRet(ret);
+    if (cmd.name !== '_echo') {
+      printCmdRet(ret);
+    }
     if (shell.error() || (ret && ret.code && ret.code !== 0)) failed = true;
   }
 
