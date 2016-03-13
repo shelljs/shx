@@ -1,6 +1,6 @@
 // This function takes the raw result of a shelljs command and figures out how to print it.
 // Invoke this *REGARDLESS* of what the command returns, it will figure it out.
-const printCmdRet = (ret) => {
+export const printCmdRet = (ret) => {
   if (!ret) return;
 
   // This is way to complicated. It should get much easier once shelljs/shelljs#356 is fixed.
@@ -15,5 +15,3 @@ const printCmdRet = (ret) => {
     console.log(ret);
   }
 };
-
-export default printCmdRet;
