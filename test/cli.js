@@ -18,7 +18,7 @@ const cli = (...args) => {
   process.argv = oldArgv;
 };
 
-test.afterEach(t => {
+test.afterEach(() => {
   sandbox.restore();
 });
 
