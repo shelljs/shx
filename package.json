@@ -50,6 +50,6 @@
     "watch": "^0.17.1"
   },
   "dependencies": {
-    "shelljs": "latest"
+    "shelljs": "github:shelljs/shelljs"
   }
 }
