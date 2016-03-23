@@ -14,7 +14,9 @@
     "lint:fix": "npm run lint --silent -- --fix",
     "lint:watch": "watch 'npm run lint --silent' src",
     "postinstall": "npm run build",
-    "test": "ava"
+    "pretest": "npm run lint",
+    "test": "ava",
+    "test:watch": "watch 'npm test --silent' src test"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,12 @@
     "url": "https://github.com/shelljs/shx/issues"
   },
   "homepage": "https://github.com/shelljs/shx#readme",
+  "ava": {
+    "babel": "inherit",
+    "require": [
+      "babel-register"
+    ]
+  },
   "devDependencies": {
     "ava": "^0.11.0",
     "babel-cli": "^6.6.5",
@@ -47,6 +55,7 @@
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^5.0.1",
     "eslint-plugin-react": "^3.16.1",
+    "sinon": "^1.17.3",
     "watch": "^0.17.1"
   },
   "dependencies": {

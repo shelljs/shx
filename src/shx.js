@@ -2,13 +2,13 @@
 import shell from 'shelljs';
 import printCmdRet from './printCmdRet';
 
-const EXIT_CODES = {
+export const EXIT_CODES = {
   SHX_ERROR: 27, // https://xkcd.com/221/
   CMD_FAILED: 1, // TODO: Once shelljs/shelljs#269 lands, use `error()`
   SUCCESS: 0,
 };
 
-const CMD_BLACKLIST = [
+export const CMD_BLACKLIST = [
   'cd',
   'pushd',
   'popd',
@@ -18,7 +18,7 @@ const CMD_BLACKLIST = [
   'exec',
 ];
 
-const shx = (argv) => {
+export const shx = (argv) => {
   const [fnName, ...args] = argv.slice(2);
   if (!fnName) {
     console.error('Error: Missing ShellJS command name');
@@ -48,5 +48,3 @@ const shx = (argv) => {
 
   return EXIT_CODES.SUCCESS;
 };
-
-export default shx;
