@@ -2,16 +2,15 @@
 // Invoke this *REGARDLESS* of what the command returns, it will figure it out.
 export const printCmdRet = (ret) => {
   if (!ret) return;
+  if (typeof ret === 'boolean') return; // don't print this
 
-  // This is way to complicated. It should get much easier once shelljs/shelljs#356 is fixed.
-  if (ret.stdout && ret.stderr) {
-    if (ret.stdout) console.log(ret.stdout);
-    if (ret.stderr) console.error(ret.stderr);
-  } else if (ret.output) {
-    console.log(ret.output);
+  if (typeof ret.stdout === 'string') {
+    process.stdout.write(ret.stdout);
   } else if (Array.isArray(ret)) {
-    console.log(ret.join('\n'));
+    process.stdout.write(ret.join('\n'));
+    if (ret.length > 0)
+      console.log(); // an extra newline
   } else {
-    console.log(ret);
+    process.stdout.write(ret);
   }
 };

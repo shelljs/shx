@@ -34,11 +34,18 @@ export const shx = (argv) => {
     return EXIT_CODES.SHX_ERROR;
   }
 
-  const ret = shell[fnName](...args);
-  const code = ret.hasOwnProperty('code') && ret.code;
+  let ret = shell[fnName](...args);
+  if (ret === null)
+    ret = shell.ShellString('', '', 1);
+  let code = ret.hasOwnProperty('code') && ret.code;
+
+  if ((fnName === 'pwd' || fnName === 'which') && !ret.endsWith('\n') && ret.length > 1)
+    ret += '\n';
 
   // echo already prints
   if (fnName !== 'echo') printCmdRet(ret);
+  if (typeof ret === 'boolean')
+    code = ret ? 0 : 1;
 
   if (typeof code === 'number') {
     return code;
