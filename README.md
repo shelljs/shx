@@ -47,3 +47,16 @@ rm('foo.txt');
 ```
 
 And then calling it with `node scripts/scriptname.js`
+
+Installing from GitHub?
+----------------------
+
+If you are installing directly from GitHub, `npm install shelljs/shx`, you'll need to build `shx` locally.  This project does not commit built assets to the GitHub repo.  To build locally:
+
+```
+cd node_modules/shx
+npm install
+npm run build
+```
+
+You can ignore this section if you are installing from NPM `npm install shx`.  Built assets are included with the NPM package. (At the time of writing, we've not yet published to NPM).
