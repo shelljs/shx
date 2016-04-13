@@ -5,6 +5,9 @@
   "bin": {
     "shx": "lib/cli.js"
   },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "prebuild": "rimraf lib",
     "build": "babel src -d lib",
