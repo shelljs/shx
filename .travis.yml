@@ -1,0 +1,34 @@
+language: c++
+sudo: false
+env:
+  - NODE_VERSION="0.10"
+  - NODE_VERSION="0.11"
+  - NODE_VERSION="0.12"
+  - NODE_VERSION="iojs-v1"
+  - NODE_VERSION="iojs-v2"
+  - NODE_VERSION="iojs-v3"
+  - NODE_VERSION="4"
+  - NODE_VERSION="5"
+
+matrix:
+  allow_failures:
+    - NODE_VERSION="0.10"
+
+# keep this blank to make sure there are no before_install steps
+before_install:
+
+install:
+  - rm -rf ~/.nvm
+  - git clone https://github.com/creationix/nvm.git ~/.nvm
+  - source ~/.nvm/nvm.sh
+  - nvm install $NODE_VERSION
+  - node --version
+  - npm install
+os:
+  - linux
+  - osx
+script:
+  - npm test
+
+notifications:
+  email: false
