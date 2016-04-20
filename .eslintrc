@@ -1,4 +1,7 @@
 {
+  "env": {
+    "node": true
+  },
   "extends": "airbnb",
   "rules": {
     "vars-on-top": 0,
