@@ -1,6 +1,9 @@
 Shx
 ===
 
+[![Travis](https://img.shields.io/travis/shelljs/shx.svg)](https://travis-ci.org/shelljs/shx)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/v3637gm5ftc72ms4/branch/master?svg=true)](https://ci.appveyor.com/project/ariporad/shx/branch/master)
+
 `shx` is a wrapper around [ShellJS](https://github.com/shelljs/shelljs) unix
 commands. We provide an easy solution to get simple unix-like commands in npm
 package build steps in a cross-platform way.
