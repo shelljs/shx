@@ -19,6 +19,8 @@ os:
   - osx
 script:
   - npm test
-
+after_success:
+  - npm run test:coverage
+  - cat ./coverage/lcov.info | ./node_modules/codecov/bin/codecov
 notifications:
   email: false
