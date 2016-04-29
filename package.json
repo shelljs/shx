@@ -18,8 +18,7 @@
     "lint:watch": "watch 'npm run lint --silent' src test",
     "prepublish": "npm run build",
     "posttest": "npm run lint --silent",
-    "test": "mocha",
-    "test:coverage": "nyc --reporter=text --reporter=lcov mocha",
+    "test": "nyc --reporter=text --reporter=lcov mocha",
     "test:watch": "concurrently -rk 'npm run test --silent -- -w' 'npm run lint:watch'"
   },
   "repository": {
