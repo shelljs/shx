@@ -18,6 +18,9 @@
     "lint:watch": "watch 'npm run lint --silent' src test",
     "prepublish": "npm run build",
     "posttest": "npm run lint --silent",
+    "release:major": "bash scripts/release.sh major",
+    "release:minor": "bash scripts/release.sh minor",
+    "release:patch": "bash scripts/release.sh patch",
     "test": "nyc --reporter=text --reporter=lcov mocha",
     "test:watch": "concurrently -rk 'npm run test --silent -- -w' 'npm run lint:watch'"
   },
