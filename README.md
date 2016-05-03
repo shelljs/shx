@@ -7,8 +7,18 @@
 commands, providing an easy solution for simple Unix-like, cross-platform
 commands in npm package scripts.
 
-## Example
+## Install
 
+```shell
+npm install shx --save-dev
+```
+This will allow using `shx` in your `package.json` scripts.
+
+## Usage
+
+### Command Line
+
+If you'd like to use `shx` on the command line, install it globally with the `-g` flag.
 The following code can be run *either a Unix or Windows* command line:
 
 ```Bash
@@ -43,7 +53,7 @@ $ shx rm -r sub                 # options work as well
 All commands internally call the ShellJS corresponding function, guaranteeing
 cross-platform compatibility.
 
-## Advantages over ShellJS
+### package.json
 
 ShellJS is good for writing long scripts. If you want to write bash-like,
 platform-independent scripts, we recommend you go with that.
