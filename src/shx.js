@@ -29,7 +29,7 @@ export const shx = (argv) => {
   if (typeof shell[fnName] !== 'function') {
     console.error(`Error: Invalid ShellJS command: ${fnName}.`);
     return EXIT_CODES.SHX_ERROR;
-  } else if (CMD_BLACKLIST.includes(fnName)) {
+  } else if (CMD_BLACKLIST.indexOf(fnName) > -1) {
     console.error(`Warning: shx ${fnName} is not supported`);
     return EXIT_CODES.SHX_ERROR;
   }
