@@ -18,7 +18,7 @@ const help = [
   '',
   'Commands:',
   '',
-  ...(commandList.map(cmd => '    - ' + cmd)) + '\n',
+  ...(commandList.map(cmd => '    - ' + cmd)),
   '',
 ].join('\n');
 
