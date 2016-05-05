@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 import shell from 'shelljs';
-import help from './help';
 import { printCmdRet } from './printCmdRet';
-
-shell.help = help;
 
 export const EXIT_CODES = {
   SHX_ERROR: 27, // https://xkcd.com/221/
