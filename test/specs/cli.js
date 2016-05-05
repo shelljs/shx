@@ -1,29 +1,7 @@
 import * as shxModule from '../../src/shx';
+import * as mocks from '../mocks';
 
 const shx = sandbox.spy(shxModule, 'shx');
-let stdout = '';
-let stderr = '';
-let code = null;
-
-const mockConsoleLog = (...msgs) => {      // mock console.log
-  stdout += `${msgs.join(' ')}\n`;
-};
-
-const mockConsoleError = (...msgs) => {    // mock console.error
-  stderr += `${msgs.join(' ')}\n`;
-};
-
-const mockStdoutWrite = (msg) => {         // mock process.stdout.write
-  stdout += msg;
-  return true;
-};
-
-const mockProcessExit = (retCode) => {
-  code = retCode || 0;
-  throw { msg: 'process.exit was called',
-          code,
-  };
-};
 
 // Run the cli with args as argv
 const cli = (...args) => {
@@ -33,15 +11,14 @@ const cli = (...args) => {
   const oldStdoutWrite = process.stdout.write;
   const oldProcessExit = process.exit;
 
-  stdout = '';
-  stderr = '';
-  code = null;
+  mocks.resetValues();
+  let code = null;
 
   process.argv = ['', '', ...args]; // mock argv
-  console.log = mockConsoleLog;
-  console.error = mockConsoleError;
-  process.stdout.write = mockStdoutWrite;
-  process.exit = mockProcessExit;
+  console.log = mocks.consoleLog;
+  console.error = mocks.consoleError;
+  process.stdout.write = mocks.stdoutWrite;
+  process.exit = mocks.processExit;
 
   try {
     require('../../src/cli');         // run cli
@@ -57,7 +34,10 @@ const cli = (...args) => {
   process.exit = oldProcessExit;
 
   delete require.cache[require.resolve('../../src/cli')]; // invalidate cache
-  return { code, stdout, stderr };
+  return { code,
+           stdout: mocks.getStdout(),
+           stderr: mocks.getStderr(),
+  };
 };
 
 describe('cli', () => {
@@ -98,11 +78,11 @@ describe('cli', () => {
   });
 
   it('does not print out boolean return values', () => {
-    let output = cli('test', '-f', 'README.md'); // true
+    let output = cli('test', '-f', 'README.md');  // true
     output.stdout.should.equal('');
     output.stderr.should.equal('');
     output.code.should.equal(0);
-    output = cli('test', '-L', 'src'); // false
+    output = cli('test', '-L', 'src');            // false
     output.stdout.should.equal('');
     output.stderr.should.equal('');
     output.code.should.equal(1);
@@ -123,7 +103,7 @@ describe('cli', () => {
     let output = cli('cp', 'README.md', 'deleteme');
     output.stdout.should.equal('');
     output.stderr.should.equal('');
-    output = cli('rm', 'deleteme'); // cleanup
+    output = cli('rm', 'deleteme'); // cleanup, but also test rm's output
     output.stdout.should.equal('');
     output.stderr.should.equal('');
   });
