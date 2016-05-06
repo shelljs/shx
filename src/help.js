@@ -1,7 +1,9 @@
 import shell from 'shelljs';
 
+const badCommands = ['ShellString', 'cd', 'pushd', 'popd', 'dirs'];
+
 const commandList = Object.keys(shell)
-  .filter(cmd => typeof shell[cmd] === 'function' && cmd !== 'ShellString');
+  .filter(cmd => typeof shell[cmd] === 'function' && badCommands.indexOf(cmd) === -1);
 
 const help = [
   'shx: A wrapper for shelljs UNIX commands.',
