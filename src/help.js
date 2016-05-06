@@ -21,7 +21,7 @@ Example:
 
 Commands:
 
-${commandList.map(cmd => `    - ${cmd}`).join('\n')},
+${commandList.map(cmd => `    - ${cmd}`).join('\n')}
 
 `;
 
