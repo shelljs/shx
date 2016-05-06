@@ -1,25 +1,10 @@
 #!/usr/bin/env node
 import shell from 'shelljs';
 import help from './help';
+import { CMD_BLACKLIST, EXIT_CODES } from './config';
 import { printCmdRet } from './printCmdRet';
 
 shell.help = help;
-
-export const EXIT_CODES = {
-  SHX_ERROR: 27, // https://xkcd.com/221/
-  CMD_FAILED: 1, // TODO: Once shelljs/shelljs#269 lands, use `error()`
-  SUCCESS: 0,
-};
-
-export const CMD_BLACKLIST = [
-  'cd',
-  'pushd',
-  'popd',
-  'dirs',
-  'set',
-  'exit',
-  'exec',
-];
 
 export const shx = (argv) => {
   const [fnName, ...args] = argv.slice(2);
