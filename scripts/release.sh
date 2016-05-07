@@ -14,12 +14,12 @@ usage() {
 
 run() {
   local version=$1
-  local collaborators=$(npm access ls-collaborators)
-  local npm_user=$(npm whoami 2>/dev/null || "false")
-  local is_collaborator=$(echo "$collaborators" | grep ".*$npm_user.*:.*write.*" && "true" || "false")
+  local npm_user=$(npm whoami)
+  local is_collaborator=$(npm access ls-collaborators | grep ".*$npm_user.*:.*write.*")
+  local is_owner=$(npm owner ls | grep ".*$npm_user <.*")
 
   if [[ "$npm_user" ]]; then
-    if [[ "$is_collaborator" ]]; then
+    if [[ "$is_collaborator" ]] || [[ "$is_owner" ]]; then
       echo "Publishing new $version version as $npm_user."
       echo ""
       npm version ${version}
