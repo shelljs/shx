@@ -49,56 +49,6 @@ describe('cli', () => {
     shx.should.have.been.called();
   });
 
-  it('fails if no command name is given', () => {
-    const output = cli();
-    output.stdout.should.equal('');
-    output.stderr.should.equal('Error: Missing ShellJS command name\n');
-    output.code.should.equal(shxModule.EXIT_CODES.SHX_ERROR);
-  });
-
-  it('fails for unrecognized commands', () => {
-    const output = cli('foobar');
-    output.stdout.should.equal('');
-    output.stderr.should.equal('Error: Invalid ShellJS command: foobar.\n');
-    output.code.should.equal(shxModule.EXIT_CODES.SHX_ERROR);
-  });
-
-  it('fails for blacklisted commands', () => {
-    const output = cli('cd', 'src');
-    output.stdout.should.equal('');
-    output.stderr.should.equal('Warning: shx cd is not supported\n');
-    output.code.should.equal(shxModule.EXIT_CODES.SHX_ERROR);
-  });
-
-  it('returns error codes from commands', () => {
-    const output = cli('ls', 'fakeFileName');
-    output.stdout.should.equal('');
-    output.stderr.should.equal('ls: no such file or directory: fakeFileName\n');
-    output.code.should.equal(2);
-  });
-
-  it('does not print out boolean return values', () => {
-    let output = cli('test', '-f', 'README.md');  // true
-    output.stdout.should.equal('');
-    output.stderr.should.equal('');
-    output.code.should.equal(0);
-    output = cli('test', '-L', 'src');            // false
-    output.stdout.should.equal('');
-    output.stderr.should.equal('');
-    output.code.should.equal(1);
-  });
-
-  it('outputs to stdout', () => {
-    const output = cli('echo', 'hello', 'world');
-    output.stdout.should.equal('hello world\n');
-    output.stderr.should.equal('');
-  });
-
-  it('appends a newline for pwd', () => {
-    const output = cli('pwd');
-    output.stdout[output.stdout.length - 1].should.equal('\n');
-  });
-
   it('works for commands with no output', () => {
     let output = cli('cp', 'README.md', 'deleteme');
     output.stdout.should.equal('');
