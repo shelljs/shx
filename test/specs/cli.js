@@ -1,4 +1,5 @@
 import * as shxModule from '../../src/shx';
+import { EXIT_CODES } from '../../src/config';
 import * as mocks from '../mocks';
 
 const shx = sandbox.spy(shxModule, 'shx');
@@ -52,22 +53,25 @@ describe('cli', () => {
   it('fails if no command name is given', () => {
     const output = cli();
     output.stdout.should.equal('');
-    output.stderr.should.equal('Error: Missing ShellJS command name\n');
-    output.code.should.equal(shxModule.EXIT_CODES.SHX_ERROR);
+    output.stderr.should.include('Error: Missing ShellJS command name\n');
+    output.stderr.should.include('Usage'); // make sure help is printed
+    output.code.should.equal(EXIT_CODES.SHX_ERROR);
   });
 
   it('fails for unrecognized commands', () => {
     const output = cli('foobar');
     output.stdout.should.equal('');
-    output.stderr.should.equal('Error: Invalid ShellJS command: foobar.\n');
-    output.code.should.equal(shxModule.EXIT_CODES.SHX_ERROR);
+    output.stderr.should.include('Error: Invalid ShellJS command: foobar.\n');
+    output.stderr.should.include('Usage'); // make sure help is printed
+    output.code.should.equal(EXIT_CODES.SHX_ERROR);
   });
 
   it('fails for blacklisted commands', () => {
     const output = cli('cd', 'src');
     output.stdout.should.equal('');
-    output.stderr.should.equal('Warning: shx cd is not supported\n');
-    output.code.should.equal(shxModule.EXIT_CODES.SHX_ERROR);
+    output.stderr.should.include('Warning: shx cd is not supported\n');
+    output.stderr.should.include('help'); // make we tell them to use help.
+    output.code.should.equal(EXIT_CODES.SHX_ERROR);
   });
 
   it('returns error codes from commands', () => {
