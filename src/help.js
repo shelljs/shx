@@ -22,7 +22,6 @@ Example:
 Commands:
 
 ${commandList.map(cmd => `    - ${cmd}`).join('\n')}
-
 `;
 
 export default () => help;

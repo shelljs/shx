@@ -10,15 +10,18 @@ export const shx = (argv) => {
   const [fnName, ...args] = argv.slice(2);
   if (!fnName) {
     console.error('Error: Missing ShellJS command name');
+    console.error(help());
     return EXIT_CODES.SHX_ERROR;
   }
 
   // validate command
   if (typeof shell[fnName] !== 'function') {
     console.error(`Error: Invalid ShellJS command: ${fnName}.`);
+    console.error(help());
     return EXIT_CODES.SHX_ERROR;
   } else if (CMD_BLACKLIST.indexOf(fnName) > -1) {
     console.error(`Warning: shx ${fnName} is not supported`);
+    console.error('Please run `shx help` for a list of commands.');
     return EXIT_CODES.SHX_ERROR;
   }
 
