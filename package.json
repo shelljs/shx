@@ -12,6 +12,7 @@
     "prebuild": "rimraf lib",
     "build": "babel src -d lib",
     "build:watch": "npm run build -- -w",
+    "changelog": "bash scripts/changelog.sh",
     "dev": "concurrently -rk 'npm run build:watch' 'npm run lint:watch'",
     "lint": "eslint .",
     "lint:fix": "npm run lint --silent -- --fix",
