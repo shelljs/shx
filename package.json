@@ -54,7 +54,7 @@
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
     "codecov": "^1.0.1",
-    "concurrently": "^2.0.0",
+    "concurrently": "^2.1.0",
     "dirty-chai": "^1.2.2",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^5.0.1",
