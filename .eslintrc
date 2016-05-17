@@ -2,8 +2,10 @@
   "env": {
     "node": true
   },
-  "extends": "airbnb",
+  "extends": "airbnb-base",
   "rules": {
+    "import/no-mutable-exports": 0,
+    "global-require": 0,
     "vars-on-top": 0,
     "spaced-comment": [2, "always", { "markers": ["@", "@include"], "exceptions": ["@"] }],
     "no-param-reassign": 1,
