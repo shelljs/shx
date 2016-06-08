@@ -111,4 +111,11 @@ describe('cli', () => {
     output.stdout.should.equal('');
     output.stderr.should.equal('');
   });
+
+  it('allows --silent to change config.silent', () => {
+    const output = cli('--silent', 'ls', 'fakeFileName');
+    output.stdout.should.equal('');
+    output.stderr.should.equal('');
+    output.code.should.equal(2);
+  });
 });

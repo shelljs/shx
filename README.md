@@ -50,6 +50,8 @@ helloworld.txt
 sub
 
 $ shx rm -r sub                 # options work as well
+
+$ shx --silent ls fakeFileName  # silence error output
 ```
 
 All commands internally call the ShellJS corresponding function, guaranteeing
