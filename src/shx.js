@@ -28,11 +28,7 @@ export const shx = (argv) => {
   }
 
   // Set shell.config with parsed options
-  Object.keys(parsedArgs).forEach(key => {
-    if (parsedArgs.hasOwnProperty(key) && key !== '_') {
-      shell.config[key] = parsedArgs[key];
-    }
-  });
+  Object.assign(shell.config, parsedArgs);
   let ret = shell[fnName](...args);
   if (ret === null)
     ret = shell.ShellString('', '', 1);
