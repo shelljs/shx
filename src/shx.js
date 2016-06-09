@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import shell from 'shelljs';
+import minimist from 'minimist';
 import help from './help';
 import { CMD_BLACKLIST, EXIT_CODES } from './config';
 import { printCmdRet } from './printCmdRet';
@@ -7,7 +8,8 @@ import { printCmdRet } from './printCmdRet';
 shell.help = help;
 
 export const shx = (argv) => {
-  const [fnName, ...args] = argv.slice(2);
+  const parsedArgs = minimist(argv.slice(2), { stopEarly: true, boolean: true });
+  const [fnName, ...args] = parsedArgs._;
   if (!fnName) {
     console.error('Error: Missing ShellJS command name');
     console.error(help());
@@ -25,6 +27,8 @@ export const shx = (argv) => {
     return EXIT_CODES.SHX_ERROR;
   }
 
+  // Set shell.config with parsed options
+  Object.assign(shell.config, parsedArgs);
   let ret = shell[fnName](...args);
   if (ret === null)
     ret = shell.ShellString('', '', 1);

@@ -68,6 +68,7 @@
     "watch": "^0.18.0"
   },
   "dependencies": {
+    "minimist": "^1.2.0",
     "shelljs": "^0.7.0"
   }
 }
