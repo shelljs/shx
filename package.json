@@ -18,9 +18,9 @@
     "lint:watch": "watch 'npm run lint --silent' src test",
     "prepublish": "npm run build",
     "posttest": "npm run lint --silent",
-    "release:major": "release major",
-    "release:minor": "release minor",
-    "release:patch": "release patch",
+    "release:major": "shelljs-release major",
+    "release:minor": "shelljs-release minor",
+    "release:patch": "shelljs-release patch",
     "changelog": "shelljs-changelog",
     "test": "nyc --reporter=text --reporter=lcov mocha",
     "test:watch": "concurrently -rk 'npm run test --silent -- -w' 'npm run lint:watch'"
@@ -64,7 +64,7 @@
     "nyc": "^6.4.0",
     "rimraf": "^2.5.2",
     "shelljs-changelog": "^0.2.0",
-    "shelljs-release": "^0.1.3",
+    "shelljs-release": "^0.2.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "watch": "^0.18.0"
