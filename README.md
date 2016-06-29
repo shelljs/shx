@@ -72,6 +72,21 @@ However, `shx` is ideal for one-liners inside `package.json`:
 }
 ```
 
+## Unsupported Commands
+
+Due to the differences in execution environments between ShellJS and `shx` (JS vs CLI) some commands are not supported:
+
+```
+$ shx cd
+$ shx pushd
+$ shx popd
+$ shx dirs
+$ shx set
+$ shx exit
+$ shx exec
+$ shx ShellString
+```
+
 ## Team
 
 | [![Nate Fischer](https://avatars.githubusercontent.com/u/5801521?s=130)](https://github.com/nfischer) | [![Ari Porad](https://avatars1.githubusercontent.com/u/1817508?v=3&s=130)](http://github.com/ariporad) | [![Levi Thomason](https://avatars1.githubusercontent.com/u/5067638?v=3&s=130)](https://github.com/levithomason) |
