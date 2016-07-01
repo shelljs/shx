@@ -21,7 +21,6 @@ os:
 script:
   - npm test
 after_success:
-  - npm run test:coverage
-  - cat ./coverage/lcov.info | ./node_modules/codecov/bin/codecov
+  - bash <(curl -s https://codecov.io/bash)
 notifications:
   email: false
