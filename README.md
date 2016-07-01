@@ -76,16 +76,28 @@ However, `shx` is ideal for one-liners inside `package.json`:
 
 Due to the differences in execution environments between ShellJS and `shx` (JS vs CLI) some commands are not supported:
 
-```
-$ shx cd
-$ shx pushd
-$ shx popd
-$ shx dirs
-$ shx set
-$ shx exit
-$ shx exec
-$ shx ShellString
-```
+| Unsupported command | Recommend workaround |
+| ------------------- | -------------------- |
+| `shx cd`            | Just use plain old `cd` (it's the same on windows too) |
+| `shx pushd`         | No workaround |
+| `shx popd`          | No workaround |
+| `shx dirs`          | No workaround |
+| `shx set`           | See below |
+| `shx exit`          | Just use plain old `exit` |
+| `shx exec`          | Instead of `shx exec cmd`, just use plain old `cmd` |
+| `shx ShellString`   | No workaround (but why would you want this?) |
+
+### Shx options
+
+Shx allows you to modify its behavior by passing arguments. Here's a list of
+supported options:
+
+| [`set`](https://github.com/shelljs/shelljs#setoptions) flag | [`shell.config`](https://github.com/shelljs/shelljs#configuration) setting | shx command | Effect |
+|:---:| --- | --- | --- |
+| `-e` | `config.fatal = true` | Not supported | Exit upon first error |
+| `-v` | `config.verbose = true` | `shx --verbose cd foo` | Log the command as it's run |
+| `-f` | `config.noglob = true` | `shx --noglob cat '*.txt'` | Don't expand wildcards |
+| N/A | `config.silent = true` | `shx --silent cd noexist` | Don't show error output |
 
 ## Team
 
