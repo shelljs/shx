@@ -29,7 +29,27 @@ export const shx = (argv) => {
 
   // Set shell.config with parsed options
   Object.assign(shell.config, parsedArgs);
-  let ret = shell[fnName](...args);
+
+  // Workaround for sed syntax
+  let newArgs;
+  let ret;
+  if (fnName === 'sed') {
+    newArgs = [];
+    let lookingForSubstString = true;
+    args.forEach((arg) => {
+      const match = arg.match(/^s\/(.*)\/(.*)\/(g?)$/);
+      if (match && lookingForSubstString) {
+        newArgs.push(new RegExp(match[1], match[3]));
+        newArgs.push(match[2]);
+        lookingForSubstString = false;
+      } else {
+        newArgs.push(arg);
+      }
+    });
+    ret = shell[fnName](...newArgs);
+  } else {
+    ret = shell[fnName](...args);
+  }
   if (ret === null)
     ret = shell.ShellString('', '', 1);
   let code = ret.hasOwnProperty('code') && ret.code;
