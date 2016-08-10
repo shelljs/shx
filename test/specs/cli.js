@@ -1,6 +1,7 @@
 import * as shxModule from '../../src/shx';
 import { EXIT_CODES } from '../../src/config';
 import * as mocks from '../mocks';
+import * as shell from 'shelljs';
 
 const shx = sandbox.spy(shxModule, 'shx');
 
@@ -117,5 +118,42 @@ describe('cli', () => {
     output.stdout.should.equal('');
     output.stderr.should.equal('');
     output.code.should.equal(2);
+  });
+
+  describe('sed', () => {
+    const testFileName1 = 'foo.txt';
+    const testFileName2 = 's/weirdfile/name/g';
+    beforeEach(() => {
+      // create test files
+      shell.touch(testFileName1);
+      shell.ShellString('foo\nfoosomething\nfoofoosomething\n').to(testFileName1);
+
+      shell.mkdir('-p', 's/weirdfile/name');
+      shell.touch(testFileName2);
+      shell.ShellString('foo\nfoosomething\nfoofoosomething\n').to(testFileName2);
+    });
+
+    afterEach(() => {
+      shell.rm('-f', testFileName1);
+      shell.rm('-rf', 's/');
+    });
+
+    it('works with no /g and no -i', () => {
+      const output = cli('sed', 's/foo/bar/', testFileName1);
+      output.stdout.should.equal('bar\nbarsomething\nbarfoosomething\n');
+      shell.cat(testFileName1).stdout.should.equal('foo\nfoosomething\nfoofoosomething\n');
+    });
+
+    it('works with /g and -i', () => {
+      const output = cli('sed', '-i', 's/foo/bar/g', testFileName1);
+      output.stdout.should.equal('bar\nbarsomething\nbarbarsomething\n');
+      shell.cat(testFileName1).stdout.should.equal('bar\nbarsomething\nbarbarsomething\n');
+    });
+
+    it('works with weird file names', () => {
+      const output = cli('sed', 's/foo/bar/', testFileName2);
+      output.stdout.should.equal('bar\nbarsomething\nbarfoosomething\n');
+      shell.cat(testFileName2).stdout.should.equal('foo\nfoosomething\nfoofoosomething\n');
+    });
   });
 });
