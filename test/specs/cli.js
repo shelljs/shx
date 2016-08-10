@@ -2,8 +2,17 @@ import * as shxModule from '../../src/shx';
 import { EXIT_CODES } from '../../src/config';
 import * as mocks from '../mocks';
 import * as shell from 'shelljs';
+import * as fs from 'fs';
 
 const shx = sandbox.spy(shxModule, 'shx');
+
+const skipIf = (cond, ...args) => {
+  if (cond) {
+    it.skip.apply(it, args);
+  } else {
+    it.apply(this, args);
+  }
+};
 
 // Run the cli with args as argv
 const cli = (...args) => {
@@ -154,6 +163,53 @@ describe('cli', () => {
       const output = cli('sed', 's/foo/bar/', testFileName2);
       output.stdout.should.equal('bar\nbarsomething\nbarfoosomething\n');
       shell.cat(testFileName2).stdout.should.equal('foo\nfoosomething\nfoofoosomething\n');
+    });
+  });
+
+  describe('grep', () => {
+    const testFileName = 'file.txt';
+    beforeEach(() => {
+      shell.touch(testFileName);
+      shell.ShellString('1st line\nfoo\nf\ndoes not match\nsomething foo\n')
+        .to(testFileName);
+    });
+    afterEach(() => {
+      shell.rm('-f', testFileName);
+    });
+    it('works with regex syntax', () => {
+      const ret = cli('grep', 'fo*', testFileName);
+      ret.stdout.should.equal('foo\nf\nsomething foo\n');
+    });
+  });
+
+  describe('chmod', () => {
+    const testFileName = 'file.txt';
+    const bitMask = parseInt('777', 8);
+    beforeEach(() => {
+      shell.touch(testFileName);
+    });
+    afterEach(() => {
+      shell.rm('-f', testFileName);
+    });
+    skipIf(process.platform === 'win32', 'works with numeric mode', () => {
+      // bitmasking is to ignore the upper bits
+      cli('chmod', '644', testFileName);
+      (fs.statSync(testFileName).mode & bitMask).should.equal(parseInt('644', 8));
+      cli('chmod', '755', testFileName);
+      (fs.statSync(testFileName).mode & bitMask).should.equal(parseInt('755', 8));
+    });
+    skipIf(process.platform === 'win32', 'works with symbolic mode (all)', () => {
+      // bitmasking is to ignore the upper bits
+      cli('chmod', '644', testFileName);
+      (fs.statSync(testFileName).mode & bitMask).should.equal(parseInt('644', 8));
+      cli('chmod', '+x', testFileName);
+      (fs.statSync(testFileName).mode & bitMask).should.equal(parseInt('755', 8));
+    });
+    skipIf(process.platform === 'win32', 'works with symbolic mode (user only)', () => {
+      cli('chmod', '644', testFileName);
+      (fs.statSync(testFileName).mode & bitMask).should.equal(parseInt('644', 8));
+      cli('chmod', 'u+x', testFileName);
+      (fs.statSync(testFileName).mode & bitMask).should.equal(parseInt('744', 8));
     });
   });
 });
