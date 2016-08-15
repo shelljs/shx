@@ -37,10 +37,13 @@ export const shx = (argv) => {
     newArgs = [];
     let lookingForSubstString = true;
     args.forEach((arg) => {
-      const match = arg.match(/^s\/(.*)\/(.*)\/(g?)$/);
+      const match = arg.match(/^s\/(.*[^\\])\/(.*[^\\])\/(g?)$/);
       if (match && lookingForSubstString) {
-        newArgs.push(new RegExp(match[1], match[3]));
-        newArgs.push(match[2]);
+        const regexString = match[1].replace(/\\\//g, '/');
+        const replacement = match[2].replace(/\\\//g, '/').replace(/\\./g, '.');
+        const regexFlags = match[3];
+        newArgs.push(new RegExp(regexString, regexFlags));
+        newArgs.push(replacement);
         lookingForSubstString = false;
       } else {
         newArgs.push(arg);
