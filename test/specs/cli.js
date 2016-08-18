@@ -132,6 +132,7 @@ describe('cli', () => {
   describe('sed', () => {
     const testFileName1 = 'foo.txt';
     const testFileName2 = 's/weirdfile/name/g';
+    const testFileName3 = 'urls.txt';
     beforeEach(() => {
       // create test files
       shell.touch(testFileName1);
@@ -140,11 +141,15 @@ describe('cli', () => {
       shell.mkdir('-p', 's/weirdfile/name');
       shell.touch(testFileName2);
       shell.ShellString('foo\nfoosomething\nfoofoosomething\n').to(testFileName2);
+
+      shell.touch(testFileName3);
+      shell.ShellString('http://www.nochange.com\nhttp://www.google.com\n').to(testFileName3);
     });
 
     afterEach(() => {
       shell.rm('-f', testFileName1);
-      shell.rm('-rf', 's/');
+      shell.rm('-rf', 's/'); // For testFileName2
+      shell.rm('-f', testFileName3);
     });
 
     it('works with no /g and no -i', () => {
@@ -157,6 +162,16 @@ describe('cli', () => {
       const output = cli('sed', '-i', 's/foo/bar/g', testFileName1);
       output.stdout.should.equal('bar\nbarsomething\nbarbarsomething\n');
       shell.cat(testFileName1).stdout.should.equal('bar\nbarsomething\nbarbarsomething\n');
+    });
+
+    it('works with regexes conatining slashes', () => {
+      const output = cli(
+        'sed',
+        's/http:\\/\\/www\\.google\\.com/https:\\/\\/www\\.facebook\\.com/',
+        testFileName3
+      );
+      output.stdout.should.equal('http://www.nochange.com\nhttps://www.facebook.com\n');
+      shell.cat(testFileName3).stdout.should.equal('http://www.nochange.com\nhttp://www.google.com\n');
     });
 
     it('works with weird file names', () => {
