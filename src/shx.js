@@ -5,7 +5,7 @@ import help from './help';
 import { CMD_BLACKLIST, EXIT_CODES, CONFIG_FILE } from './config';
 import { printCmdRet } from './printCmdRet';
 import path from 'path';
-import fs from 'fs';
+import pathExists from 'path-exists';
 
 shell.help = help;
 
@@ -20,7 +20,7 @@ export const shx = (argv) => {
 
   // Load ShellJS plugins
   const CONFIG_PATH = path.join(process.cwd(), CONFIG_FILE);
-  if (fs.existsSync(CONFIG_PATH)) {
+  if (pathExists.sync(CONFIG_PATH)) {
     let shxConfig;
     try {
       shxConfig = require(CONFIG_PATH);

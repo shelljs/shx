@@ -71,6 +71,7 @@
   },
   "dependencies": {
     "minimist": "^1.2.0",
+    "path-exists": "^3.0.0",
     "shelljs": "^0.7.3"
   }
 }
