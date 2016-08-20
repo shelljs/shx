@@ -1,10 +1,11 @@
 import shell from 'shelljs';
 import { CMD_BLACKLIST } from './config';
 
-const commandList = Object.keys(shell)
-  .filter(cmd => typeof shell[cmd] === 'function' && CMD_BLACKLIST.indexOf(cmd) === -1);
+export default () => {
+  const commandList = Object.keys(shell)
+    .filter(cmd => typeof shell[cmd] === 'function' && CMD_BLACKLIST.indexOf(cmd) === -1);
 
-const help = `
+  return `
 shx: A wrapper for shelljs UNIX commands.
 
 Usage: shx <command> [options]
@@ -23,5 +24,4 @@ Commands:
 
 ${commandList.map(cmd => `    - ${cmd}`).join('\n')}
 `;
-
-export default () => help;
+};

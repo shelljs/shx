@@ -14,3 +14,5 @@ export const CMD_BLACKLIST = [
   'exec',
   'ShellString',
 ];
+
+export const CONFIG_FILE = '.shxrc.json';

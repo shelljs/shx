@@ -5,6 +5,7 @@ tmp
 lib
 .nyc_output
 coverage
+.shxrc.json
 
 # Linux
 *~

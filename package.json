@@ -63,6 +63,7 @@
     "nyc": "^6.4.0",
     "rimraf": "^2.5.2",
     "shelljs-changelog": "^0.2.0",
+    "shelljs-plugin-open": "^0.1.1",
     "shelljs-release": "^0.2.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
@@ -70,6 +71,6 @@
   },
   "dependencies": {
     "minimist": "^1.2.0",
-    "shelljs": "^0.7.0"
+    "shelljs": "^0.7.3"
   }
 }

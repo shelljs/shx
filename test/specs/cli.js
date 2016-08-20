@@ -1,8 +1,9 @@
 import * as shxModule from '../../src/shx';
-import { EXIT_CODES } from '../../src/config';
+import { EXIT_CODES, CONFIG_FILE } from '../../src/config';
 import * as mocks from '../mocks';
 import * as shell from 'shelljs';
-import * as fs from 'fs';
+import fs from 'fs';
+import path from 'path';
 
 const shx = sandbox.spy(shxModule, 'shx');
 
@@ -34,17 +35,22 @@ const cli = (...args) => {
   try {
     require('../../src/cli');         // run cli
   } catch (e) {
-    code = e.code;
+    if (e.hasOwnProperty('code')) {
+      // Shx is returning an error with a specified code
+      code = e.code;
+    } else {
+      // Shx is throwing an exception
+      throw e;
+    }
+  } finally {
+    // restore stuff
+    process.argv = oldArgv;
+    console.log = oldConsoleLog;
+    console.error = oldConsoleError;
+    process.stdout.write = oldStdoutWrite;
+    process.exit = oldProcessExit;
   }
 
-  // restore stuff
-  process.argv = oldArgv;
-  console.log = oldConsoleLog;
-  console.error = oldConsoleError;
-  process.stdout.write = oldStdoutWrite;
-  process.exit = oldProcessExit;
-
-  delete require.cache[require.resolve('../../src/cli')]; // invalidate cache
   return { code,
            stdout: mocks.getStdout(),
            stderr: mocks.getStderr(),
@@ -127,6 +133,54 @@ describe('cli', () => {
     output.stdout.should.equal('');
     output.stderr.should.equal('');
     output.code.should.equal(2);
+  });
+
+  describe('plugin', () => {
+    afterEach(() => {
+      shell.rm('-f', CONFIG_FILE);
+      const CONFIG_PATH = path.join(process.cwd(), CONFIG_FILE);
+      delete require.cache[require.resolve(CONFIG_PATH)];
+    });
+
+    it('throws exception for missing plugins', () => {
+      const config = {
+        plugins: [
+          'shelljs-plugin-fake',
+        ],
+      };
+      shell.ShellString(JSON.stringify(config)).to(CONFIG_FILE);
+
+      (() => {
+        cli('ls');
+      }).should.throw(Error);
+    });
+
+    it('defends against malicious config files', () => {
+      const notValidJSON = `
+      var shell = require('shelljs');
+      shell.rm('-rf', 'myPreciousFile.txt');
+      module.export = {};
+      `;
+      shell.ShellString(notValidJSON).to(CONFIG_FILE);
+
+      (() => {
+        cli('ls');
+      }).should.throw(Error);
+    });
+
+    it('adds plugin commands to the help files', () => {
+      const config = {
+        plugins: [
+          'shelljs-plugin-open',
+        ],
+      };
+      shell.ShellString(JSON.stringify(config)).to(CONFIG_FILE);
+
+      const output = cli('help');
+      output.stderr.should.equal('');
+      output.stdout.should.include('Usage'); // make sure help is printed
+      output.stdout.should.include('- open'); // make sure help includes new command
+    });
   });
 
   describe('sed', () => {
