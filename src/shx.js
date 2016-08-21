@@ -2,8 +2,10 @@
 import shell from 'shelljs';
 import minimist from 'minimist';
 import help from './help';
-import { CMD_BLACKLIST, EXIT_CODES } from './config';
+import { CMD_BLACKLIST, EXIT_CODES, CONFIG_FILE } from './config';
 import { printCmdRet } from './printCmdRet';
+import path from 'path';
+import pathExists from 'path-exists';
 
 shell.help = help;
 
@@ -14,6 +16,25 @@ export const shx = (argv) => {
     console.error('Error: Missing ShellJS command name');
     console.error(help());
     return EXIT_CODES.SHX_ERROR;
+  }
+
+  // Load ShellJS plugins
+  const CONFIG_PATH = path.join(process.cwd(), CONFIG_FILE);
+  if (pathExists.sync(CONFIG_PATH)) {
+    let shxConfig;
+    try {
+      shxConfig = require(CONFIG_PATH);
+    } catch (e) {
+      throw new Error(`Unable to read config file ${CONFIG_FILE}`);
+    }
+
+    (shxConfig.plugins || []).forEach((pluginName) => {
+      try {
+        require(pluginName);
+      } catch (e) {
+        throw new Error(`Unable to find plugin '${pluginName}'`);
+      }
+    });
   }
 
   // validate command
