@@ -5,7 +5,18 @@ import help from './help';
 import { CMD_BLACKLIST, EXIT_CODES, CONFIG_FILE } from './config';
 import { printCmdRet } from './printCmdRet';
 import path from 'path';
-import pathExists from 'path-exists';
+import fs from 'fs';
+import objAssign from 'es6-object-assign';
+objAssign.polyfill(); // modifies the global object
+
+const pathExistsSync = (filePath) => {
+  try {
+    fs.accessSync(filePath);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
 
 shell.help = help;
 
@@ -20,7 +31,7 @@ export const shx = (argv) => {
 
   // Load ShellJS plugins
   const CONFIG_PATH = path.join(process.cwd(), CONFIG_FILE);
-  if (pathExists.sync(CONFIG_PATH)) {
+  if (pathExistsSync(CONFIG_PATH)) {
     let shxConfig;
     try {
       shxConfig = require(CONFIG_PATH);
@@ -78,7 +89,7 @@ export const shx = (argv) => {
     ret = shell.ShellString('', '', 1);
   let code = ret.hasOwnProperty('code') && ret.code;
 
-  if ((fnName === 'pwd' || fnName === 'which') && !ret.endsWith('\n') && ret.length > 1)
+  if ((fnName === 'pwd' || fnName === 'which') && !ret.match(/\n$/) && ret.length > 1)
     ret += '\n';
 
   // echo already prints
