@@ -14,22 +14,14 @@ const skipIf = (cond, ...args) => {
   }
 };
 
-const oldConsoleLog = console.log;
-const oldConsoleError = console.error;
-const oldStdoutWrite = process.stdout.write;
-const oldProcessExit = process.exit;
-
 // Run the cli with args as argv
 const cli = (...args) => {
-  mocks.resetValues();
-  console.log = mocks.consoleLog;
-  console.error = mocks.consoleError;
-  process.stdout.write = mocks.stdoutWrite;
-  process.exit = mocks.processExit;
+  mocks.init();
+  const stdin = mocks.stdin();
 
   let code;
   try {
-    code = shx(['', '', ...args]);
+    code = shx.call(stdin, ['', '', ...args]);
   } catch (e) {
     if (e.hasOwnProperty('code')) {
       // Shx is returning an error with a specified code
@@ -39,20 +31,22 @@ const cli = (...args) => {
       throw e;
     }
   } finally {
-    // restore stuff
-    console.log = oldConsoleLog;
-    console.error = oldConsoleError;
-    process.stdout.write = oldStdoutWrite;
-    process.exit = oldProcessExit;
+    mocks.restore();
   }
 
   return { code,
-           stdout: mocks.getStdout(),
-           stderr: mocks.getStderr(),
+           stdout: mocks.stdout(),
+           stderr: mocks.stderr(),
   };
 };
 
 describe('cli', () => {
+  beforeEach(() => {
+    // Clear this out before the test, so that the test can mock the value if
+    // necessary
+    mocks.stdin(null);
+  });
+
   it('calls shx', () => {
     const output = cli('echo');
     output.stdout.should.equal('\n');
@@ -126,6 +120,14 @@ describe('cli', () => {
     output.stdout.should.equal('');
     output.stderr.should.equal('');
     output.code.should.equal(2);
+  });
+
+  it('accepts stdin', () => {
+    mocks.stdin('foo\nbar\nfoobar');
+    const output = cli('grep', 'foo');
+    output.stdout.should.equal('foo\nfoobar\n');
+    output.stderr.should.equal('');
+    output.code.should.equal(0);
   });
 
   describe('plugin', () => {

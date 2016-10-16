@@ -20,7 +20,7 @@ const pathExistsSync = (filePath) => {
 
 shell.help = help;
 
-export const shx = (argv) => {
+export function shx(argv) {
   const parsedArgs = minimist(argv.slice(2), { stopEarly: true, boolean: true });
   const [fnName, ...args] = parsedArgs._;
   if (!fnName) {
@@ -59,6 +59,8 @@ export const shx = (argv) => {
     return EXIT_CODES.SHX_ERROR;
   }
 
+  const input = this !== null ? new shell.ShellString(this) : null;
+
   // Set shell.config with parsed options
   Object.assign(shell.config, parsedArgs);
 
@@ -81,9 +83,9 @@ export const shx = (argv) => {
         newArgs.push(arg);
       }
     });
-    ret = shell[fnName](...newArgs);
+    ret = shell[fnName].apply(input, newArgs);
   } else {
-    ret = shell[fnName](...args);
+    ret = shell[fnName].apply(input, args);
   }
   if (ret === null)
     ret = shell.ShellString('', '', 1);
@@ -104,4 +106,4 @@ export const shx = (argv) => {
   }
 
   return EXIT_CODES.SUCCESS;
-};
+}
