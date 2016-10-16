@@ -1,11 +1,10 @@
-import * as shxModule from '../../src/shx';
+import { shx } from '../../src/shx';
 import { EXIT_CODES, CONFIG_FILE } from '../../src/config';
 import * as mocks from '../mocks';
 import * as shell from 'shelljs';
 import fs from 'fs';
 import path from 'path';
-
-const shx = sandbox.spy(shxModule, 'shx');
+import 'should';
 
 const skipIf = (cond, ...args) => {
   if (cond) {
@@ -15,25 +14,22 @@ const skipIf = (cond, ...args) => {
   }
 };
 
+const oldConsoleLog = console.log;
+const oldConsoleError = console.error;
+const oldStdoutWrite = process.stdout.write;
+const oldProcessExit = process.exit;
+
 // Run the cli with args as argv
 const cli = (...args) => {
-  const oldArgv = process.argv;     // store original argv
-  const oldConsoleLog = console.log;
-  const oldConsoleError = console.error;
-  const oldStdoutWrite = process.stdout.write;
-  const oldProcessExit = process.exit;
-
   mocks.resetValues();
-  let code = null;
-
-  process.argv = ['', '', ...args]; // mock argv
   console.log = mocks.consoleLog;
   console.error = mocks.consoleError;
   process.stdout.write = mocks.stdoutWrite;
   process.exit = mocks.processExit;
 
+  let code;
   try {
-    require('../../src/cli');         // run cli
+    code = shx(['', '', ...args]);
   } catch (e) {
     if (e.hasOwnProperty('code')) {
       // Shx is returning an error with a specified code
@@ -44,7 +40,6 @@ const cli = (...args) => {
     }
   } finally {
     // restore stuff
-    process.argv = oldArgv;
     console.log = oldConsoleLog;
     console.error = oldConsoleError;
     process.stdout.write = oldStdoutWrite;
@@ -59,34 +54,32 @@ const cli = (...args) => {
 
 describe('cli', () => {
   it('calls shx', () => {
-    shx.should.have.not.been.called();
     const output = cli('echo');
     output.stdout.should.equal('\n');
     output.stderr.should.equal('');
-    shx.should.have.been.called();
   });
 
   it('fails if no command name is given', () => {
     const output = cli();
     output.stdout.should.equal('');
-    output.stderr.should.include('Error: Missing ShellJS command name\n');
-    output.stderr.should.include('Usage'); // make sure help is printed
+    output.stderr.should.match(/Error: Missing ShellJS command name\n/);
+    output.stderr.should.match(/Usage/); // make sure help is printed
     output.code.should.equal(EXIT_CODES.SHX_ERROR);
   });
 
   it('fails for unrecognized commands', () => {
     const output = cli('foobar');
     output.stdout.should.equal('');
-    output.stderr.should.include('Error: Invalid ShellJS command: foobar.\n');
-    output.stderr.should.include('Usage'); // make sure help is printed
+    output.stderr.should.match(/Error: Invalid ShellJS command: foobar.\n/);
+    output.stderr.should.match(/Usage/); // make sure help is printed
     output.code.should.equal(EXIT_CODES.SHX_ERROR);
   });
 
   it('fails for blacklisted commands', () => {
     const output = cli('cd', 'src');
     output.stdout.should.equal('');
-    output.stderr.should.include('Warning: shx cd is not supported\n');
-    output.stderr.should.include('help'); // make we tell them to use help.
+    output.stderr.should.match(/Warning: shx cd is not supported\n/);
+    output.stderr.should.match(/help/); // make we tell them to use help.
     output.code.should.equal(EXIT_CODES.SHX_ERROR);
   });
 
@@ -178,8 +171,8 @@ describe('cli', () => {
 
       const output = cli('help');
       output.stderr.should.equal('');
-      output.stdout.should.include('Usage'); // make sure help is printed
-      output.stdout.should.include('- open'); // make sure help includes new command
+      output.stdout.should.match(/Usage/); // make sure help is printed
+      output.stdout.should.match(/- open/); // make sure help includes new command
     });
   });
 
