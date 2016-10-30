@@ -9,15 +9,6 @@ import fs from 'fs';
 import objAssign from 'es6-object-assign';
 objAssign.polyfill(); // modifies the global object
 
-const pathExistsSync = (filePath) => {
-  try {
-    fs.accessSync(filePath);
-    return true;
-  } catch (e) {
-    return false;
-  }
-};
-
 shell.help = help;
 
 export function shx(argv) {
@@ -31,7 +22,7 @@ export function shx(argv) {
 
   // Load ShellJS plugins
   const CONFIG_PATH = path.join(process.cwd(), CONFIG_FILE);
-  if (pathExistsSync(CONFIG_PATH)) {
+  if (fs.existsSync(CONFIG_PATH)) {
     let shxConfig;
     try {
       shxConfig = require(CONFIG_PATH);
