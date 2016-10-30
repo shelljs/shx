@@ -10,7 +10,7 @@
     "spaced-comment": [2, "always", { "markers": ["@", "@include"], "exceptions": ["@"] }],
     "no-param-reassign": 1,
     "no-console": 0,
-    "curly": 0,
+    "curly": [2, "multi-line"],
     "no-var": 2,
     "prefer-const": 2,
     "new-cap": [2, {

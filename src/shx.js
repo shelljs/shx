@@ -87,17 +87,20 @@ export function shx(argv) {
   } else {
     ret = shell[fnName].apply(input, args);
   }
-  if (ret === null)
-    ret = shell.ShellString('', '', 1);
+  if (ret === null) ret = shell.ShellString('', '', 1);
+
+  /* instanbul ignore next */
   let code = ret.hasOwnProperty('code') && ret.code;
 
-  if ((fnName === 'pwd' || fnName === 'which') && !ret.match(/\n$/) && ret.length > 1)
+  if ((fnName === 'pwd' || fnName === 'which') && !ret.match(/\n$/) && ret.length > 1) {
     ret += '\n';
+  }
 
   // echo already prints
   if (fnName !== 'echo') printCmdRet(ret);
-  if (typeof ret === 'boolean')
+  if (typeof ret === 'boolean') {
     code = ret ? 0 : 1;
+  }
 
   if (typeof code === 'number') {
     return code;
