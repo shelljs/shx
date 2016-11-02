@@ -178,6 +178,30 @@ describe('cli', () => {
     });
   });
 
+  describe('ls', () => {
+    beforeEach(() => {
+      shell.mkdir('empty');
+      shell.mkdir('not-empty');
+      shell.touch('not-empty/file1.txt');
+      shell.touch('not-empty/file2.txt');
+    });
+
+    afterEach(() => {
+      shell.rm('-rf', 'empty');
+      shell.rm('-rf', 'not-empty');
+    });
+
+    it('works with an empty directory', () => {
+      const output = cli('ls', 'empty');
+      output.stdout.should.equal('');
+    });
+
+    it('works with a non-empty directory', () => {
+      const output = cli('ls', 'not-empty');
+      output.stdout.should.equal('file1.txt\nfile2.txt\n');
+    });
+  });
+
   describe('sed', () => {
     const testFileName1 = 'foo.txt';
     const testFileName2 = 's/weirdfile/name/g';
