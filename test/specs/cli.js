@@ -1,5 +1,5 @@
 import { shx } from '../../src/shx';
-import { EXIT_CODES, CONFIG_FILE } from '../../src/config';
+import { EXIT_CODES, CONFIG_FILE, shouldReadStdin } from '../../src/config';
 import * as mocks from '../mocks';
 import * as shell from 'shelljs';
 import fs from 'fs';
@@ -130,6 +130,63 @@ describe('cli', () => {
     output.code.should.equal(0);
   });
 
+  describe('stdin', () => {
+    const oldTTY = process.stdin.isTTY;
+    after(() => {
+      process.stdin.isTTY = oldTTY;
+    });
+
+    it('reads stdin for commands that accept stdin', () => {
+      process.stdin.isTTY = undefined;
+      shouldReadStdin(['cat']).should.equal(true);
+      shouldReadStdin(['head']).should.equal(true);
+      shouldReadStdin(['sed', 's/foo/bar/g']).should.equal(true);
+      shouldReadStdin(['grep', 'a.*z']).should.equal(true);
+    });
+
+    it('reads stdin if only options are given', () => {
+      process.stdin.isTTY = undefined;
+      shouldReadStdin(['head', '-n', '1']).should.equal(true);
+      shouldReadStdin(['grep', '-i', 'a.*z']).should.equal(true);
+    });
+
+    it('does not read stdin if process.stdin is a TTY', () => {
+      process.stdin.isTTY = true;
+      shouldReadStdin(['cat']).should.equal(false);
+      shouldReadStdin(['head']).should.equal(false);
+      shouldReadStdin(['sed', 's/foo/bar/g']).should.equal(false);
+      shouldReadStdin(['grep', 'a.*z']).should.equal(false);
+    });
+
+    it('does not read stdin if command does not accept stdin', () => {
+      process.stdin.isTTY = undefined;
+      // It shouldn't matter for this function if these have valid numbers of
+      // arguments or not, so let's test both
+      shouldReadStdin(['rm']).should.equal(false);
+      shouldReadStdin(['ls', 'dir']).should.equal(false);
+      shouldReadStdin(['cp', 'a']).should.equal(false);
+    });
+
+    it('does not read stdin if files are given as arguments', () => {
+      process.stdin.isTTY = undefined;
+      shouldReadStdin(['cat', 'file.txt']).should.equal(false);
+      shouldReadStdin(['head', 'file.txt']).should.equal(false);
+      shouldReadStdin(['sed', 's/foo/bar/g', 'file.txt']).should.equal(false);
+      shouldReadStdin(['grep', 'a.*z', 'file.txt']).should.equal(false);
+      // Lots of files
+      shouldReadStdin(['cat', 'file.txt', 'file2.txt', 'file3.txt'])
+        .should.equal(false);
+    });
+
+    it('does not read stdin if both options and files are given', () => {
+      process.stdin.isTTY = undefined;
+      shouldReadStdin(['head', '-n', '1', 'file.txt']).should.equal(false);
+      shouldReadStdin(['sed', '-i', 's/foo/bar/g', 'file.txt'])
+        .should.equal(false);
+      shouldReadStdin(['grep', '-i', 'a.*z', 'file.txt']).should.equal(false);
+    });
+  });
+
   describe('plugin', () => {
     afterEach(() => {
       shell.rm('-f', CONFIG_FILE);
@@ -174,7 +231,7 @@ describe('cli', () => {
       const output = cli('help');
       output.stderr.should.equal('');
       output.stdout.should.match(/Usage/); // make sure help is printed
-      output.stdout.should.match(/- open/); // make sure help includes new command
+      output.stdout.should.match(/- open/); // help should include new command
     });
   });
 
@@ -209,14 +266,17 @@ describe('cli', () => {
     beforeEach(() => {
       // create test files
       shell.touch(testFileName1);
-      shell.ShellString('foo\nfoosomething\nfoofoosomething\n').to(testFileName1);
+      shell.ShellString('foo\nfoosomething\nfoofoosomething\n')
+        .to(testFileName1);
 
       shell.mkdir('-p', 's/weirdfile/name');
       shell.touch(testFileName2);
-      shell.ShellString('foo\nfoosomething\nfoofoosomething\n').to(testFileName2);
+      shell.ShellString('foo\nfoosomething\nfoofoosomething\n')
+        .to(testFileName2);
 
       shell.touch(testFileName3);
-      shell.ShellString('http://www.nochange.com\nhttp://www.google.com\n').to(testFileName3);
+      shell.ShellString('http://www.nochange.com\nhttp://www.google.com\n')
+        .to(testFileName3);
     });
 
     afterEach(() => {
@@ -228,13 +288,15 @@ describe('cli', () => {
     it('works with no /g and no -i', () => {
       const output = cli('sed', 's/foo/bar/', testFileName1);
       output.stdout.should.equal('bar\nbarsomething\nbarfoosomething\n');
-      shell.cat(testFileName1).stdout.should.equal('foo\nfoosomething\nfoofoosomething\n');
+      shell.cat(testFileName1).stdout.should
+        .equal('foo\nfoosomething\nfoofoosomething\n');
     });
 
     it('works with /g and -i', () => {
       const output = cli('sed', '-i', 's/foo/bar/g', testFileName1);
       output.stdout.should.equal('bar\nbarsomething\nbarbarsomething\n');
-      shell.cat(testFileName1).stdout.should.equal('bar\nbarsomething\nbarbarsomething\n');
+      shell.cat(testFileName1).stdout.should
+        .equal('bar\nbarsomething\nbarbarsomething\n');
     });
 
     it('works with regexes conatining slashes', () => {
@@ -243,14 +305,17 @@ describe('cli', () => {
         's/http:\\/\\/www\\.google\\.com/https:\\/\\/www\\.facebook\\.com/',
         testFileName3
       );
-      output.stdout.should.equal('http://www.nochange.com\nhttps://www.facebook.com\n');
-      shell.cat(testFileName3).stdout.should.equal('http://www.nochange.com\nhttp://www.google.com\n');
+      output.stdout.should
+        .equal('http://www.nochange.com\nhttps://www.facebook.com\n');
+      shell.cat(testFileName3).stdout.should
+        .equal('http://www.nochange.com\nhttp://www.google.com\n');
     });
 
     it('works with weird file names', () => {
       const output = cli('sed', 's/foo/bar/', testFileName2);
       output.stdout.should.equal('bar\nbarsomething\nbarfoosomething\n');
-      shell.cat(testFileName2).stdout.should.equal('foo\nfoosomething\nfoofoosomething\n');
+      shell.cat(testFileName2).stdout.should
+        .equal('foo\nfoosomething\nfoofoosomething\n');
     });
   });
 
@@ -282,9 +347,11 @@ describe('cli', () => {
     skipIf(process.platform === 'win32', 'works with numeric mode', () => {
       // bitmasking is to ignore the upper bits
       cli('chmod', '644', testFileName);
-      (fs.statSync(testFileName).mode & bitMask).should.equal(parseInt('644', 8));
+      (fs.statSync(testFileName).mode & bitMask).should
+        .equal(parseInt('644', 8));
       cli('chmod', '755', testFileName);
-      (fs.statSync(testFileName).mode & bitMask).should.equal(parseInt('755', 8));
+      (fs.statSync(testFileName).mode & bitMask).should
+        .equal(parseInt('755', 8));
     });
     skipIf(process.platform === 'win32', 'works with symbolic mode (all)', () => {
       // bitmasking is to ignore the upper bits
