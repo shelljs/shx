@@ -15,7 +15,7 @@ const consoleError = (...msgs) => {    // mock console.error
   stderrValue += `${msgs.join(' ')}\n`;
 };
 
-const stdoutWrite = (msg) => {         // mock process.stdoutValue.write
+const stdoutWrite = (msg) => {         // mock process.stdout.write
   stdoutValue += msg;
   return true;
 };
