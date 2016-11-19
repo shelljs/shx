@@ -14,6 +14,12 @@ env:
 # keep this blank to make sure there are no before_install steps
 before_install:
 
+matrix:
+  allow_failures:
+    - NODE_VERSION="1"
+    - NODE_VERSION="2"
+    - NODE_VERSION="3"
+
 install:
   - rm -rf ~/.nvm
   - git clone https://github.com/creationix/nvm.git ~/.nvm
