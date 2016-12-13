@@ -10,6 +10,11 @@
 commands, providing an easy solution for simple Unix-like, cross-platform
 commands in npm package scripts.
 
+## Difference Between ShellJS and shx
+
+- **ShellJS:** Good for writing long scripts, all in JS, running via NodeJS (e.g. `node myScript.js`).
+- **shx:** Good for writing one-off commands in npm package scripts (e.g. `"clean": "shx rm -rf out/"`).
+
 ## Install
 
 ```shell
