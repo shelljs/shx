@@ -2,7 +2,95 @@
 
 ## [Unreleased](https://github.com/shelljs/shx/tree/HEAD)
 
-[Full Changelog](https://github.com/shelljs/shx/compare/v0.1.1...HEAD)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.2.1...HEAD)
+
+**Closed issues:**
+
+- chore: remove lgtm.co [\#102](https://github.com/shelljs/shx/issues/102)
+
+**Merged pull requests:**
+
+- Remove lgtm.co related files [\#106](https://github.com/shelljs/shx/pull/106) ([freitagbr](https://github.com/freitagbr))
+- Update README.md [\#104](https://github.com/shelljs/shx/pull/104) ([corysimmons](https://github.com/corysimmons))
+
+## [v0.2.1](https://github.com/shelljs/shx/tree/v0.2.1) (2016-11-19)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.2.0...v0.2.1)
+
+**Closed issues:**
+
+- "shx cp" does not finish on Unix-Systems [\#95](https://github.com/shelljs/shx/issues/95)
+
+**Merged pull requests:**
+
+- fix: only wait for stdin when appropriate [\#98](https://github.com/shelljs/shx/pull/98) ([nfischer](https://github.com/nfischer))
+- chore: fix spelling error [\#96](https://github.com/shelljs/shx/pull/96) ([nfischer](https://github.com/nfischer))
+
+## [v0.2.0](https://github.com/shelljs/shx/tree/v0.2.0) (2016-11-08)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.1.4...v0.2.0)
+
+**Closed issues:**
+
+- cp -r fails after 72 directories \(Many files\) [\#94](https://github.com/shelljs/shx/issues/94)
+- chore: add node v7 to CI [\#90](https://github.com/shelljs/shx/issues/90)
+- Unable to use in postinstall script on Windows [\#88](https://github.com/shelljs/shx/issues/88)
+- fs.existsSync is un-deprecated [\#87](https://github.com/shelljs/shx/issues/87)
+- piping from cat seems broken [\#85](https://github.com/shelljs/shx/issues/85)
+- List usb devices [\#84](https://github.com/shelljs/shx/issues/84)
+- Feature request: generic OR [\#83](https://github.com/shelljs/shx/issues/83)
+- Add -u flag  support for cp   [\#82](https://github.com/shelljs/shx/issues/82)
+- Commands should accept stdin [\#80](https://github.com/shelljs/shx/issues/80)
+- Add plugin support [\#73](https://github.com/shelljs/shx/issues/73)
+
+**Merged pull requests:**
+
+- Add node v7 to CI [\#93](https://github.com/shelljs/shx/pull/93) ([freitagbr](https://github.com/freitagbr))
+- refactor: various changes [\#92](https://github.com/shelljs/shx/pull/92) ([nfischer](https://github.com/nfischer))
+- refactor: use fs.existsSync [\#91](https://github.com/shelljs/shx/pull/91) ([nfischer](https://github.com/nfischer))
+- feat: pass stdin along to ShellJS commands [\#89](https://github.com/shelljs/shx/pull/89) ([nfischer](https://github.com/nfischer))
+- fix: don't exit until all output is flushed [\#86](https://github.com/shelljs/shx/pull/86) ([nfischer](https://github.com/nfischer))
+- chore: add support for v0.11+ [\#81](https://github.com/shelljs/shx/pull/81) ([nfischer](https://github.com/nfischer))
+- chore: add npm downloads per month [\#79](https://github.com/shelljs/shx/pull/79) ([nfischer](https://github.com/nfischer))
+- feat: support for ShellJS plugins [\#78](https://github.com/shelljs/shx/pull/78) ([nfischer](https://github.com/nfischer))
+
+## [v0.1.4](https://github.com/shelljs/shx/tree/v0.1.4) (2016-08-18)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.1.3...v0.1.4)
+
+**Merged pull requests:**
+
+- fix: sed works with slashes in regex [\#77](https://github.com/shelljs/shx/pull/77) ([nfischer](https://github.com/nfischer))
+- test: add unit tests for grep and chmod [\#76](https://github.com/shelljs/shx/pull/76) ([nfischer](https://github.com/nfischer))
+
+## [v0.1.3](https://github.com/shelljs/shx/tree/v0.1.3) (2016-08-10)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.1.2...v0.1.3)
+
+**Closed issues:**
+
+- Using sed [\#74](https://github.com/shelljs/shx/issues/74)
+- cp -n should not produce errors if file exists [\#67](https://github.com/shelljs/shx/issues/67)
+- Generic NUL output redirect [\#61](https://github.com/shelljs/shx/issues/61)
+- Consider using publish-please [\#60](https://github.com/shelljs/shx/issues/60)
+- Explain unsupported commands and give workarounds [\#59](https://github.com/shelljs/shx/issues/59)
+- shx with no args: help message? [\#48](https://github.com/shelljs/shx/issues/48)
+- Setup changelog [\#18](https://github.com/shelljs/shx/issues/18)
+
+**Merged pull requests:**
+
+- fix: allow sed to use a unix syntax [\#75](https://github.com/shelljs/shx/pull/75) ([nfischer](https://github.com/nfischer))
+- docs: add workarounds for unsupported commands [\#72](https://github.com/shelljs/shx/pull/72) ([nfischer](https://github.com/nfischer))
+- chore: remove unnecessary dependency [\#71](https://github.com/shelljs/shx/pull/71) ([nfischer](https://github.com/nfischer))
+- docs: add npm README badge [\#70](https://github.com/shelljs/shx/pull/70) ([nfischer](https://github.com/nfischer))
+- docs: unsupported commands [\#69](https://github.com/shelljs/shx/pull/69) ([levithomason](https://github.com/levithomason))
+- chore: update shelljs-release [\#66](https://github.com/shelljs/shx/pull/66) ([nfischer](https://github.com/nfischer))
+- chore: switch to shelljs-changelog [\#64](https://github.com/shelljs/shx/pull/64) ([nfischer](https://github.com/nfischer))
+- chore: switch to shelljs-release [\#63](https://github.com/shelljs/shx/pull/63) ([nfischer](https://github.com/nfischer))
+- feat: --silent will silence error output [\#62](https://github.com/shelljs/shx/pull/62) ([nfischer](https://github.com/nfischer))
+- Update eslint to version 2.10.1 🚀 [\#57](https://github.com/shelljs/shx/pull/57) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- concurrently@2.1.0 untested ⚠️ [\#56](https://github.com/shelljs/shx/pull/56) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- Update all dependencies 🌴 [\#54](https://github.com/shelljs/shx/pull/54) ([greenkeeperio-bot](https://github.com/greenkeeperio-bot))
+- chore\(changelog\): create and add script [\#53](https://github.com/shelljs/shx/pull/53) ([levithomason](https://github.com/levithomason))
+
+## [v0.1.2](https://github.com/shelljs/shx/tree/v0.1.2) (2016-05-11)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.1.1...v0.1.2)
 
 **Closed issues:**
 
