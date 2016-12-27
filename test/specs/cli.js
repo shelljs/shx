@@ -311,6 +311,18 @@ describe('cli', () => {
         .equal('http://www.nochange.com\nhttp://www.google.com\n');
     });
 
+    it('works with empty replacement strings (with /g)', () => {
+      const output = cli('sed', 's/foo//g', testFileName1);
+      output.stdout.should
+        .equal('\nsomething\nsomething\n');
+    });
+
+    it('works with empty replacement strings (without /g)', () => {
+      const output = cli('sed', 's/foo//', testFileName1);
+      output.stdout.should
+        .equal('\nsomething\nfoosomething\n');
+    });
+
     it('works with weird file names', () => {
       const output = cli('sed', 's/foo/bar/', testFileName2);
       output.stdout.should.equal('bar\nbarsomething\nbarfoosomething\n');

@@ -62,7 +62,7 @@ export function shx(argv) {
     newArgs = [];
     let lookingForSubstString = true;
     args.forEach((arg) => {
-      const match = arg.match(/^s\/(.*[^\\])\/(.*[^\\])\/(g?)$/);
+      const match = arg.match(/^s\/((?:\\\/|[^\/])+)\/((?:\\\/|[^\/])*)\/(g?)$/);
       if (match && lookingForSubstString) {
         const regexString = match[1].replace(/\\\//g, '/');
         const replacement = match[2].replace(/\\\//g, '/').replace(/\\./g, '.');
