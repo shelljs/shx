@@ -1,7 +1,7 @@
 # Shx
 
 [![Travis](https://img.shields.io/travis/shelljs/shx/master.svg?style=flat-square&label=unix)](https://travis-ci.org/shelljs/shx)
-[![AppVeyor](https://img.shields.io/appveyor/ci/ariporad/shx/master.svg?style=flat-square&label=windows)](https://ci.appveyor.com/project/ariporad/shx/branch/master)
+[![AppVeyor](https://img.shields.io/appveyor/ci/shelljs/shx/master.svg?style=flat-square&label=windows)](https://ci.appveyor.com/project/shelljs/shx/branch/master)
 [![Codecov](https://img.shields.io/codecov/c/github/shelljs/shx/master.svg?style=flat-square&label=coverage)](https://codecov.io/gh/shelljs/shx)
 [![npm version](https://img.shields.io/npm/v/shx.svg?style=flat-square)](https://www.npmjs.com/package/shx)
 [![npm downloads](https://img.shields.io/npm/dm/shx.svg?style=flat-square)](https://www.npmjs.com/package/shx)
