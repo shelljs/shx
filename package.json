@@ -1,6 +1,6 @@
 {
   "name": "shx",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Portable Shell Commands for Node",
   "bin": {
     "shx": "lib/cli.js"
