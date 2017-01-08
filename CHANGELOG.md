@@ -1,17 +1,22 @@
 # Change Log
 
-## [Unreleased](https://github.com/shelljs/shx/tree/HEAD)
-
-[Full Changelog](https://github.com/shelljs/shx/compare/v0.2.1...HEAD)
+## [v0.2.2](https://github.com/shelljs/shx/tree/v0.2.2) (2017-01-08)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.2.1...v0.2.2)
 
 **Closed issues:**
 
+- sed does not accept a blank replacement string [\#109](https://github.com/shelljs/shx/issues/109)
 - chore: remove lgtm.co [\#102](https://github.com/shelljs/shx/issues/102)
+- chore: consider allowing iojs failures on travis [\#99](https://github.com/shelljs/shx/issues/99)
+- chore: switch appveyor to my account [\#97](https://github.com/shelljs/shx/issues/97)
 
 **Merged pull requests:**
 
+- fix: better regex support for sed [\#110](https://github.com/shelljs/shx/pull/110) ([nfischer](https://github.com/nfischer))
+- chore: switch appveyor to shelljs account [\#107](https://github.com/shelljs/shx/pull/107) ([nfischer](https://github.com/nfischer))
 - Remove lgtm.co related files [\#106](https://github.com/shelljs/shx/pull/106) ([freitagbr](https://github.com/freitagbr))
 - Update README.md [\#104](https://github.com/shelljs/shx/pull/104) ([corysimmons](https://github.com/corysimmons))
+- chore: allow Travis failures on iojs [\#100](https://github.com/shelljs/shx/pull/100) ([nfischer](https://github.com/nfischer))
 
 ## [v0.2.1](https://github.com/shelljs/shx/tree/v0.2.1) (2016-11-19)
 [Full Changelog](https://github.com/shelljs/shx/compare/v0.2.0...v0.2.1)
