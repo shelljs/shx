@@ -12,7 +12,11 @@ objAssign.polyfill(); // modifies the global object
 shell.help = help;
 
 export function shx(argv) {
-  const parsedArgs = minimist(argv.slice(2), { stopEarly: true, boolean: true });
+  argv.splice(0, 2);
+  if (argv[0] === '-c') {
+    argv = argv[1].split(' ');
+  }
+  const parsedArgs = minimist(argv, { stopEarly: true, boolean: true });
   const [fnName, ...args] = parsedArgs._;
   if (!fnName) {
     console.error('Error: Missing ShellJS command name');
