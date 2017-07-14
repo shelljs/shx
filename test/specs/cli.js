@@ -61,6 +61,12 @@ describe('cli', () => {
     output.code.should.equal(EXIT_CODES.SHX_ERROR);
   });
 
+  it("handles -c 'input' directly from npm scripts", () => {
+    const output = cli('-c', 'echo hello world');
+    output.stdout.should.equal('hello world\n');
+    output.stderr.should.equal('');
+  });
+
   it('fails for unrecognized commands', () => {
     const output = cli('foobar');
     output.stdout.should.equal('');
