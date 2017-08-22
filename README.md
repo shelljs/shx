@@ -85,8 +85,8 @@ Due to the differences in execution environments between ShellJS and `shx` (JS v
 | Unsupported command | Recommend workaround |
 | ------------------- | -------------------- |
 | `shx cd`            | Just use plain old `cd` (it's the same on windows too) |
-| `shx pushd`         | No workaround |
-| `shx popd`          | No workaround |
+| `shx pushd`         | Just use plain old `pushd`. Use forward slashes and double-quote the path. (e.g. `pushd "../docs"`. This would fail on Windows without the quotes) |
+| `shx popd`          | Just use plain old `popd` |
 | `shx dirs`          | No workaround |
 | `shx set`           | See below |
 | `shx exit`          | Just use plain old `exit` |
