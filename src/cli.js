@@ -9,20 +9,11 @@ const parsedArgs = minimist(process.argv.slice(2), { stopEarly: true, boolean: t
 // running from the right-hand side of a pipe
 const run = (input) => {
   // Pass stdin to shx as the 'this' parameter
-  const code = shx.call(input, process.argv);
+  process.exitCode = shx.call(input, process.argv);
 
-  // Make sure output is flushed before exiting the process. Please see:
-  //  - https://github.com/shelljs/shx/issues/85
-  //  - https://github.com/mochajs/mocha/issues/333
-  let streamCount = 0;
-  const streams = [process.stdout, process.stderr];
-  streams.forEach(stream => {
-    streamCount++; // count each stream
-    stream.write('', () => {
-      streamCount--; // mark each stream as finished
-      if (streamCount === 0) process.exit(code);
-    });
-  });
+  // We use process.exitCode to ensure we don't terminate the process before
+  // streams finish. See:
+  //   https://github.com/shelljs/shx/issues/85
 };
 
 // ShellJS doesn't support input streams, so we have to collect all input first
