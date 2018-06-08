@@ -2,7 +2,14 @@
 
 ## [Unreleased](https://github.com/shelljs/shx/tree/HEAD)
 
-[Full Changelog](https://github.com/shelljs/shx/compare/v0.2.2...HEAD)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.3.0...HEAD)
+
+**Closed issues:**
+
+- `shx echo -n aaa` shows `-n aaa` [\#129](https://github.com/shelljs/shx/issues/129)
+
+## [v0.3.0](https://github.com/shelljs/shx/tree/v0.3.0) (2018-06-08)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.2.2...v0.3.0)
 
 **Closed issues:**
 
