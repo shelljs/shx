@@ -64,7 +64,7 @@
     "rimraf": "^2.5.2",
     "shelljs-changelog": "^0.2.0",
     "shelljs-plugin-open": "^0.2.0",
-    "shelljs-release": "^0.2.0",
+    "shelljs-release": "^0.3.0",
     "should": "^11.1.1",
     "watch": "^0.18.0"
   },
