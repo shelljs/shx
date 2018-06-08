@@ -1,5 +1,28 @@
 # Change Log
 
+## [Unreleased](https://github.com/shelljs/shx/tree/HEAD)
+
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.2.2...HEAD)
+
+**Closed issues:**
+
+- Ship shx with shelljs@v0.8 [\#125](https://github.com/shelljs/shx/issues/125)
+- Support executables [\#124](https://github.com/shelljs/shx/issues/124)
+- Discuss: popd/pushd workarounds [\#121](https://github.com/shelljs/shx/issues/121)
+- Feature request: date [\#120](https://github.com/shelljs/shx/issues/120)
+- Fails trying to utilise the new script-shell npm config [\#117](https://github.com/shelljs/shx/issues/117)
+- Refactor: consider using process.exitCode [\#116](https://github.com/shelljs/shx/issues/116)
+- Add node v8 to CI [\#114](https://github.com/shelljs/shx/issues/114)
+- can we use this without the `shx` prefix? [\#113](https://github.com/shelljs/shx/issues/113)
+- Command substitution feature [\#112](https://github.com/shelljs/shx/issues/112)
+
+**Merged pull requests:**
+
+- feat: bump shelljs to expose new features [\#126](https://github.com/shelljs/shx/pull/126) ([nfischer](https://github.com/nfischer))
+- fix: use process.exitCode to wait for streams [\#123](https://github.com/shelljs/shx/pull/123) ([nfischer](https://github.com/nfischer))
+- Add workaround for pushd and popd to README [\#122](https://github.com/shelljs/shx/pull/122) ([eteeselink](https://github.com/eteeselink))
+- Add node 8 to CI [\#115](https://github.com/shelljs/shx/pull/115) ([freitagbr](https://github.com/freitagbr))
+
 ## [v0.2.2](https://github.com/shelljs/shx/tree/v0.2.2) (2017-01-08)
 [Full Changelog](https://github.com/shelljs/shx/compare/v0.2.1...v0.2.2)
 
