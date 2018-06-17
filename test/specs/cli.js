@@ -115,25 +115,34 @@ describe('cli', () => {
     output.stderr.should.equal('');
   });
 
-  it('allows --silent to change config.silent', () => {
-    const output = cli('--silent', 'ls', 'fakeFileName');
-    output.stdout.should.equal('');
-    output.stderr.should.equal('');
-    output.code.should.equal(2);
-  });
+  describe('global flags', () => {
+    it('supports --version', () => {
+      const output = cli('--version');
+      output.stdout.should.match(/shx v\S+ \(using ShellJS v\S+\)\n/);
+      output.stderr.should.equal('');
+      output.code.should.equal(0);
+    });
 
-  it('accepts stdin', () => {
-    mocks.stdin('foo\nbar\nfoobar');
-    const output = cli('grep', 'foo');
-    output.stdout.should.equal('foo\nfoobar\n');
-    output.stderr.should.equal('');
-    output.code.should.equal(0);
+    it('allows --silent to change config.silent', () => {
+      const output = cli('--silent', 'ls', 'fakeFileName');
+      output.stdout.should.equal('');
+      output.stderr.should.equal('');
+      output.code.should.equal(2);
+    });
   });
 
   describe('stdin', () => {
     const oldTTY = process.stdin.isTTY;
     after(() => {
       process.stdin.isTTY = oldTTY;
+    });
+
+    it('has basic support', () => {
+      mocks.stdin('foo\nbar\nfoobar');
+      const output = cli('grep', 'foo');
+      output.stdout.should.equal('foo\nfoobar\n');
+      output.stderr.should.equal('');
+      output.code.should.equal(0);
     });
 
     it('reads stdin for commands that accept stdin', () => {
