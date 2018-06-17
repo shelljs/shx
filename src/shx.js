@@ -11,6 +11,37 @@ objAssign.polyfill(); // modifies the global object
 
 shell.help = help;
 
+const convertSedRegex = args => {
+  const newArgs = [];
+  let lookingForSubstString = true;
+  args.forEach((arg) => {
+    // A regex or replacement string can be any sequence of zero or more
+    // (a) non-slashes or (b) escaped chars.
+    const escapedChar = '\\\\.'; // This may match an escaped slash (i.e., "\/")
+    const nonSlash = '[^/]';
+    const nonSlashSequence = `(?:${escapedChar}|${nonSlash})*`;
+    const sedPattern = `^s/(${nonSlashSequence})/(${nonSlashSequence})/(g?)$`;
+    const match = arg.match(new RegExp(sedPattern));
+    if (match && lookingForSubstString) {
+      const regexString = match[1].replace(/\\\//g, '/');
+      const replacement = match[2].replace(/\\\//g, '/').replace(/\\./g, '.');
+      const regexFlags = match[3];
+      if (!regexString) {
+        // Unix sed gives an error if the pattern is the empty string, so we
+        // forbid this case even though JavaScript's .replace() has well-defined
+        // behavior.
+        throw new Error('Bad sed pattern (empty regex)');
+      }
+      newArgs.push(new RegExp(regexString, regexFlags));
+      newArgs.push(replacement);
+      lookingForSubstString = false;
+    } else {
+      newArgs.push(arg);
+    }
+  });
+  return newArgs;
+};
+
 export function shx(argv) {
   const parsedArgs = minimist(argv.slice(2), { stopEarly: true, boolean: true });
   const [fnName, ...args] = parsedArgs._;
@@ -56,24 +87,9 @@ export function shx(argv) {
   Object.assign(shell.config, parsedArgs);
 
   // Workaround for sed syntax
-  let newArgs;
   let ret;
   if (fnName === 'sed') {
-    newArgs = [];
-    let lookingForSubstString = true;
-    args.forEach((arg) => {
-      const match = arg.match(/^s\/((?:\\\/|[^\/])+)\/((?:\\\/|[^\/])*)\/(g?)$/);
-      if (match && lookingForSubstString) {
-        const regexString = match[1].replace(/\\\//g, '/');
-        const replacement = match[2].replace(/\\\//g, '/').replace(/\\./g, '.');
-        const regexFlags = match[3];
-        newArgs.push(new RegExp(regexString, regexFlags));
-        newArgs.push(replacement);
-        lookingForSubstString = false;
-      } else {
-        newArgs.push(arg);
-      }
-    });
+    const newArgs = convertSedRegex(args);
     ret = shell[fnName].apply(input, newArgs);
   } else {
     ret = shell[fnName].apply(input, args);

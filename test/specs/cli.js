@@ -261,45 +261,50 @@ describe('cli', () => {
 
   describe('sed', () => {
     const testFileName1 = 'foo.txt';
+    const testContents1 = 'foo\nfoosomething\nfoofoosomething\n';
     const testFileName2 = 's/weirdfile/name/g';
+    const testContents2 = testContents1;
     const testFileName3 = 'urls.txt';
+    const testContents3 = 'http://www.nochange.com\nhttp://www.google.com\n';
+    const testFileName4 = 'windowsPath.txt';
+    const testContents4 = 'C:\\Some\\Windows\\file\\path.txt';
     beforeEach(() => {
       // create test files
       shell.touch(testFileName1);
-      shell.ShellString('foo\nfoosomething\nfoofoosomething\n')
-        .to(testFileName1);
+      shell.ShellString(testContents1).to(testFileName1);
 
-      shell.mkdir('-p', 's/weirdfile/name');
+      shell.mkdir('-p', path.dirname(testFileName2));
       shell.touch(testFileName2);
-      shell.ShellString('foo\nfoosomething\nfoofoosomething\n')
-        .to(testFileName2);
+      shell.ShellString(testContents2).to(testFileName2);
 
       shell.touch(testFileName3);
-      shell.ShellString('http://www.nochange.com\nhttp://www.google.com\n')
-        .to(testFileName3);
+      shell.ShellString(testContents3).to(testFileName3);
+
+      shell.touch(testFileName4);
+      shell.ShellString(testContents4).to(testFileName4);
     });
 
     afterEach(() => {
       shell.rm('-f', testFileName1);
       shell.rm('-rf', 's/'); // For testFileName2
       shell.rm('-f', testFileName3);
+      shell.rm('-f', testFileName4);
     });
 
     it('works with no /g and no -i', () => {
       const output = cli('sed', 's/foo/bar/', testFileName1);
       output.stdout.should.equal('bar\nbarsomething\nbarfoosomething\n');
-      shell.cat(testFileName1).stdout.should
-        .equal('foo\nfoosomething\nfoofoosomething\n');
+      shell.cat(testFileName1).stdout.should.equal(testContents1);
     });
 
     it('works with /g and -i', () => {
       const output = cli('sed', '-i', 's/foo/bar/g', testFileName1);
-      output.stdout.should.equal('bar\nbarsomething\nbarbarsomething\n');
-      shell.cat(testFileName1).stdout.should
-        .equal('bar\nbarsomething\nbarbarsomething\n');
+      const expected = 'bar\nbarsomething\nbarbarsomething\n';
+      output.stdout.should.equal(expected);
+      shell.cat(testFileName1).stdout.should.equal(expected);
     });
 
-    it('works with regexes conatining slashes', () => {
+    it('works with regexes containing slashes', () => {
       const output = cli(
         'sed',
         's/http:\\/\\/www\\.google\\.com/https:\\/\\/www\\.facebook\\.com/',
@@ -307,14 +312,29 @@ describe('cli', () => {
       );
       output.stdout.should
         .equal('http://www.nochange.com\nhttps://www.facebook.com\n');
-      shell.cat(testFileName3).stdout.should
-        .equal('http://www.nochange.com\nhttp://www.google.com\n');
+      shell.cat(testFileName3).stdout.should.equal(testContents3);
+    });
+
+    it('works with backslashes and forward slashes in pattern', () => {
+      const output = cli(
+        'sed',
+        's/\\\\/\\//g',
+        testFileName4
+      );
+      output.stdout.should.equal('C:/Some/Windows/file/path.txt');
+      shell.cat(testFileName4).stdout.should.equal(testContents4);
     });
 
     it('works with empty replacement strings (with /g)', () => {
       const output = cli('sed', 's/foo//g', testFileName1);
       output.stdout.should
         .equal('\nsomething\nsomething\n');
+    });
+
+    it('does not work with empty regex strings', () => {
+      (() => {
+        cli('sed', 's//foo/g', testFileName1);
+      }).should.throw(Error);
     });
 
     it('works with empty replacement strings (without /g)', () => {
@@ -326,8 +346,7 @@ describe('cli', () => {
     it('works with weird file names', () => {
       const output = cli('sed', 's/foo/bar/', testFileName2);
       output.stdout.should.equal('bar\nbarsomething\nbarfoosomething\n');
-      shell.cat(testFileName2).stdout.should
-        .equal('foo\nfoosomething\nfoofoosomething\n');
+      shell.cat(testFileName2).stdout.should.equal(testContents2);
     });
   });
 
