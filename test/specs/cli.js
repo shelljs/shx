@@ -334,7 +334,7 @@ describe('cli', () => {
     it('does not work with empty regex strings', () => {
       (() => {
         cli('sed', 's//foo/g', testFileName1);
-      }).should.throw(Error);
+      }).should.throw('Bad sed pattern (empty regex)');
     });
 
     it('works with empty replacement strings (without /g)', () => {

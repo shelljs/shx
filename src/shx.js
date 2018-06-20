@@ -26,7 +26,7 @@ const convertSedRegex = args => {
       const regexString = match[1].replace(/\\\//g, '/');
       const replacement = match[2].replace(/\\\//g, '/').replace(/\\./g, '.');
       const regexFlags = match[3];
-      if (!regexString) {
+      if (regexString === '') {
         // Unix sed gives an error if the pattern is the empty string, so we
         // forbid this case even though JavaScript's .replace() has well-defined
         // behavior.
