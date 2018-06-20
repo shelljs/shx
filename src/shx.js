@@ -102,6 +102,7 @@ export function shx(argv) {
   if (typeof code === 'number') {
     return code;
   } else if (shell.error()) {
+    /* istanbul ignore next */
     return EXIT_CODES.CMD_FAILED;
   }
 

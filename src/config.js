@@ -42,7 +42,7 @@ export const shouldReadStdin = (args) => {
   });
   let requiredNumArgs = cmdInfo ? cmdInfo.minArgs : -1;
 
-  // If a non-boolean option is passed in, incrememnt the required argument
+  // If a non-boolean option is passed in, increment the required argument
   // count (this is the case for `-n` for `head` and `tail`)
   if (parsedArgs.n && (cmd === 'head' || cmd === 'tail')) {
     requiredNumArgs++;
