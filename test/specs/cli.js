@@ -153,9 +153,10 @@ describe('cli', () => {
       shouldReadStdin(['grep', 'a.*z']).should.equal(true);
     });
 
-    it('reads stdin if only options are given', () => {
+    it('reads stdin if not enough arguments are given', () => {
       process.stdin.isTTY = undefined;
       shouldReadStdin(['head', '-n', '1']).should.equal(true);
+      shouldReadStdin(['tail', '-n', '1']).should.equal(true);
       shouldReadStdin(['grep', '-i', 'a.*z']).should.equal(true);
     });
 
@@ -214,6 +215,20 @@ describe('cli', () => {
       (() => {
         cli('ls');
       }).should.throw(Error);
+    });
+
+    it('does not load any plugins if config file lacks plugin section', () => {
+      const config = {
+        notplugins: [ // the plugins attribute is mandatory for loading plugins
+          'shelljs-plugin-open',
+        ],
+      };
+      shell.ShellString(JSON.stringify(config)).to(CONFIG_FILE);
+
+      const output = cli('help');
+      output.stderr.should.equal(''); // Runs successfully
+      output.stdout.should.match(/Usage/); // make sure help is printed
+      output.stdout.should.not.match(/- open/); // should *not* load the plugin
     });
 
     it('defends against malicious config files', () => {
