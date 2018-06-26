@@ -1,12 +1,24 @@
 # Change Log
 
-## [Unreleased](https://github.com/shelljs/shx/tree/HEAD)
-
-[Full Changelog](https://github.com/shelljs/shx/compare/v0.3.0...HEAD)
+## [v0.3.1](https://github.com/shelljs/shx/tree/v0.3.1) (2018-06-26)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.3.0...v0.3.1)
 
 **Closed issues:**
 
+- curl / wget [\#141](https://github.com/shelljs/shx/issues/141)
+- Regex support for forward slashes in sed [\#136](https://github.com/shelljs/shx/issues/136)
+- Appveyor config broken for latest npm [\#132](https://github.com/shelljs/shx/issues/132)
 - `shx echo -n aaa` shows `-n aaa` [\#129](https://github.com/shelljs/shx/issues/129)
+- feature request: --version [\#111](https://github.com/shelljs/shx/issues/111)
+
+**Merged pull requests:**
+
+- test\(coverage\): fix coverage issues [\#139](https://github.com/shelljs/shx/pull/139) ([nfischer](https://github.com/nfischer))
+- feat\(version\): support --version flag [\#138](https://github.com/shelljs/shx/pull/138) ([nfischer](https://github.com/nfischer))
+- fix\(sed\): better support for converting sed patterns [\#137](https://github.com/shelljs/shx/pull/137) ([nfischer](https://github.com/nfischer))
+- chore: bump dev dependencies to resolve install warnings [\#135](https://github.com/shelljs/shx/pull/135) ([nfischer](https://github.com/nfischer))
+- chore\(appveyor\): do not use latest npm [\#133](https://github.com/shelljs/shx/pull/133) ([nfischer](https://github.com/nfischer))
+- chore\(CI\): add node v10 to CI [\#131](https://github.com/shelljs/shx/pull/131) ([nfischer](https://github.com/nfischer))
 
 ## [v0.3.0](https://github.com/shelljs/shx/tree/v0.3.0) (2018-06-08)
 [Full Changelog](https://github.com/shelljs/shx/compare/v0.2.2...v0.3.0)
