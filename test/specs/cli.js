@@ -257,6 +257,20 @@ describe('cli', () => {
       output.stdout.should.match(/Usage/); // make sure help is printed
       output.stdout.should.match(/- open/); // help should include new command
     });
+
+    it('loads shx true by default', () => {
+      const output = cli('true');
+      output.stdout.should.equal('');
+      output.stderr.should.equal('');
+      output.code.should.equal(0);
+    });
+
+    it('loads shx false by default', () => {
+      const output = cli('false');
+      output.stdout.should.equal('');
+      output.stderr.should.equal('');
+      output.code.should.equal(1);
+    });
   });
 
   describe('ls', () => {
