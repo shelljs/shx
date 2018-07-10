@@ -129,6 +129,15 @@ describe('cli', () => {
       output.stderr.should.equal('');
       output.code.should.equal(2);
     });
+
+    it('adds flags to the help output', () => {
+      const output = cli('help');
+      output.stderr.should.equal('');
+      output.stdout.should.match(/Usage/); // make sure help is printed
+      output.stdout.should.match(/\* --verbose/);
+      output.stdout.should.match(/\* --silent/);
+      output.stdout.should.match(/\* --version/);
+    });
   });
 
   describe('stdin', () => {
@@ -255,7 +264,7 @@ describe('cli', () => {
       const output = cli('help');
       output.stderr.should.equal('');
       output.stdout.should.match(/Usage/); // make sure help is printed
-      output.stdout.should.match(/- open/); // help should include new command
+      output.stdout.should.match(/\* open/); // help should include new command
     });
 
     it('loads shx true by default', () => {
