@@ -76,6 +76,9 @@ export function shx(argv) {
     });
   }
 
+  // Always load true-false plugin
+  require('./plugin-true-false');
+
   // validate command
   if (typeof shell[fnName] !== 'function') {
     console.error(`Error: Invalid ShellJS command: ${fnName}.`);
