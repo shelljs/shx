@@ -17,6 +17,13 @@ export const CMD_BLACKLIST = [
   'ShellString',
 ];
 
+export const OPTION_BLACKLIST = [
+  'globOptions', // we don't have good control over globbing in the shell
+  'execPath', // we don't currently support exec
+  'bufLength', // we don't use buffers in shx
+  'maxdepth', // this option is undocumented, add this back if it makes sense
+];
+
 export const CONFIG_FILE = '.shxrc.json';
 
 export const SHELLJS_PIPE_INFO = {
