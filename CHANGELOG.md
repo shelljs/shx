@@ -1,5 +1,21 @@
 # Change Log
 
+## [Unreleased](https://github.com/shelljs/shx/tree/HEAD)
+
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.3.1...HEAD)
+
+**Closed issues:**
+
+- Mocha and babel compiler warnings [\#144](https://github.com/shelljs/shx/issues/144)
+- Add "true" and "false" commands [\#105](https://github.com/shelljs/shx/issues/105)
+- --help should list options [\#101](https://github.com/shelljs/shx/issues/101)
+
+**Merged pull requests:**
+
+- chore: fix issues with nyc and mocha [\#145](https://github.com/shelljs/shx/pull/145) ([nfischer](https://github.com/nfischer))
+- feat: help command provides info on options [\#143](https://github.com/shelljs/shx/pull/143) ([nfischer](https://github.com/nfischer))
+- feat: add true and false as default commands [\#142](https://github.com/shelljs/shx/pull/142) ([nfischer](https://github.com/nfischer))
+
 ## [v0.3.1](https://github.com/shelljs/shx/tree/v0.3.1) (2018-06-26)
 [Full Changelog](https://github.com/shelljs/shx/compare/v0.3.0...v0.3.1)
 
