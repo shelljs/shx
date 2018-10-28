@@ -26,3 +26,6 @@ build: off
 
 test_script:
   - npm test
+
+on_success:
+  - npm run codecov -- -f coverage/lcov.info
