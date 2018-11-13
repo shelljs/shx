@@ -6,8 +6,6 @@ import { CMD_BLACKLIST, EXIT_CODES, CONFIG_FILE } from './config';
 import { printCmdRet } from './printCmdRet';
 import path from 'path';
 import fs from 'fs';
-import objAssign from 'es6-object-assign';
-objAssign.polyfill(); // modifies the global object
 
 shell.help = help;
 

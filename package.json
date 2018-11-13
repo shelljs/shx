@@ -69,7 +69,6 @@
     "watch": "^0.18.0"
   },
   "dependencies": {
-    "es6-object-assign": "^1.0.3",
     "minimist": "^1.2.0",
     "shelljs": "^0.8.1"
   },
