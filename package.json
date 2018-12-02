@@ -9,6 +9,7 @@
     "lib"
   ],
   "scripts": {
+    "check-node-support": "node scripts/check-node-support",
     "prebuild": "rimraf lib",
     "build": "babel src -d lib",
     "build:watch": "npm run build -- -w",
@@ -59,6 +60,7 @@
     "eslint": "^2.10.1",
     "eslint-config-airbnb-base": "^3.0.1",
     "eslint-plugin-import": "^1.8.0",
+    "js-yaml": "^3.12.0",
     "mocha": "^5.2.0",
     "nyc": "^11.0.0",
     "rimraf": "^2.5.2",
