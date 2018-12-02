@@ -58,9 +58,7 @@ function checkTravis(minNodeVersion, maxNodeVersion, travisYaml) {
 
 function checkAppveyor(minNodeVersion, maxNodeVersion, appveyorYaml) {
   var expectedAppveyorVersions = range(minNodeVersion, maxNodeVersion)
-      .map(function (num) {
-        return { nodejs_version: num.toString() };
-      })
+      .map(num => ({ nodejs_version: num.toString() }))
       .reverse(); // Arbitrarily, we store appveyor in reverse order.
   var msg = 'Check Appveyor environment.matrix versions';
   assertDeepEquals(appveyorYaml.environment.matrix, expectedAppveyorVersions,

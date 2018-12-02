@@ -1,0 +1,10 @@
+{
+  "env": {
+    "node": true
+  },
+  "extends": "../.eslintrc.json",
+  "rules": {
+    "prefer-template": 0,
+    "no-var": 0
+  }
+}
