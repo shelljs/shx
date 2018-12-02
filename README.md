@@ -10,6 +10,8 @@
 commands, providing an easy solution for simple Unix-like, cross-platform
 commands in npm package scripts.
 
+`shx` is proudly tested on every node release since <!-- start minVersion -->`v4`<!-- stop minVersion -->!
+
 ## Difference Between ShellJS and shx
 
 - **ShellJS:** Good for writing long scripts, all in JS, running via NodeJS (e.g. `node myScript.js`).
