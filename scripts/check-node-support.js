@@ -8,7 +8,7 @@ var yaml = require('js-yaml');
 var shell = require('shelljs');
 
 // This is the authoritative list of supported node versions.
-var MIN_NODE_VERSION = 4;
+var MIN_NODE_VERSION = 6;
 var MAX_NODE_VERSION = 10;
 
 function checkReadme(minNodeVersion) {
@@ -19,7 +19,7 @@ function checkReadme(minNodeVersion) {
       start + '\\s*' + formattedMinVersion + '\\s*' + stop, '');
   var readme = path.join(__dirname, '..', 'README.md');
   var match = shell.grep(expectedReadmeRegex, readme);
-  if (!match.toString()) {
+  if (!match.toString().trim()) {
     var msg = 'Update README to specify the min supported version. Look for "'
         + start + '"';
     throw new Error(msg);
