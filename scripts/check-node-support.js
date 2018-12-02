@@ -26,9 +26,9 @@ function checkReadme(minNodeVersion) {
   }
 }
 
-function checkEngines(minNodeVersion, package) {
+function checkEngines(minNodeVersion, pack) {
   var expectedEnginesNode = '>=' + minNodeVersion;
-  if (package.engines.node !== expectedEnginesNode) {
+  if (pack.engines.node !== expectedEnginesNode) {
     var msg = 'Update package.json to fix the "engines" attribute';
     throw new Error(msg);
   }
@@ -70,8 +70,8 @@ function checkAppveyor(minNodeVersion, maxNodeVersion, appveyorYaml) {
 try {
   checkReadme(MIN_NODE_VERSION);
 
-  var package = require('../package.json');
-  checkEngines(MIN_NODE_VERSION, package);
+  var pack = require('../package.json');
+  checkEngines(MIN_NODE_VERSION, pack);
 
   var travisFileName = path.join(__dirname, '..', '.travis.yml');
   var travisYaml = yaml.safeLoad(shell.cat(travisFileName));
