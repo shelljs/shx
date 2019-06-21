@@ -1,16 +1,19 @@
-import { shx } from '../../src/shx';
-import { EXIT_CODES, CONFIG_FILE, shouldReadStdin } from '../../src/config';
-import * as mocks from '../mocks';
 import * as shell from 'shelljs';
 import fs from 'fs';
 import path from 'path';
+import { shx } from '../../src/shx';
+import { EXIT_CODES, CONFIG_FILE, shouldReadStdin } from '../../src/config';
+import * as mocks from '../mocks';
 import 'should';
+
+/* eslint no-bitwise: "off" */
+/* eslint prefer-numeric-literals: "off" */
 
 const skipIf = (cond, ...args) => {
   if (cond) {
-    it.skip.apply(it, args);
+    it.skip(...args);
   } else {
-    it.apply(this, args);
+    it(...args);
   }
 };
 
@@ -23,7 +26,7 @@ const cli = (...args) => {
   try {
     code = shx.call(stdin, ['', '', ...args]);
   } catch (e) {
-    if (e.hasOwnProperty('code')) {
+    if (Object.prototype.hasOwnProperty.call(e, 'code')) {
       // Shx is returning an error with a specified code
       code = e.code;
     } else {
@@ -34,9 +37,10 @@ const cli = (...args) => {
     mocks.restore();
   }
 
-  return { code,
-           stdout: mocks.stdout(),
-           stderr: mocks.stderr(),
+  return {
+    code,
+    stdout: mocks.stdout(),
+    stderr: mocks.stderr(),
   };
 };
 
@@ -85,11 +89,11 @@ describe('cli', () => {
   });
 
   it('does not print out boolean return values', () => {
-    let output = cli('test', '-f', 'README.md');  // true
+    let output = cli('test', '-f', 'README.md'); // true
     output.stdout.should.equal('');
     output.stderr.should.equal('');
     output.code.should.equal(0);
-    output = cli('test', '-L', 'src');            // false
+    output = cli('test', '-L', 'src'); // false
     output.stdout.should.equal('');
     output.stderr.should.equal('');
     output.code.should.equal(1);
@@ -355,7 +359,7 @@ describe('cli', () => {
       const output = cli(
         'sed',
         's/http:\\/\\/www\\.google\\.com/https:\\/\\/www\\.facebook\\.com/',
-        testFileName3
+        testFileName3,
       );
       output.stdout.should
         .equal('http://www.nochange.com\nhttps://www.facebook.com\n');
@@ -366,7 +370,7 @@ describe('cli', () => {
       const output = cli(
         'sed',
         's/\\\\/\\//g',
-        testFileName4
+        testFileName4,
       );
       output.stdout.should.equal('C:/Some/Windows/file/path.txt');
       shell.cat(testFileName4).stdout.should.equal(testContents4);

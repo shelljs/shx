@@ -1,15 +1,14 @@
-#!/usr/bin/env node
 import shell from 'shelljs';
 import minimist from 'minimist';
+import path from 'path';
+import fs from 'fs';
 import help from './help';
 import { CMD_BLACKLIST, EXIT_CODES, CONFIG_FILE } from './config';
 import { printCmdRet } from './printCmdRet';
-import path from 'path';
-import fs from 'fs';
 
 shell.help = help;
 
-const convertSedRegex = args => {
+const convertSedRegex = (args) => {
   const newArgs = [];
   let lookingForSubstString = true;
   args.forEach((arg) => {
@@ -104,7 +103,7 @@ export function shx(argv) {
   if (ret === null) ret = shell.ShellString('', '', 1);
 
   /* instanbul ignore next */
-  let code = ret.hasOwnProperty('code') && ret.code;
+  let code = Object.prototype.hasOwnProperty.call(ret, 'code') && ret.code;
 
   if ((fnName === 'pwd' || fnName === 'which') && !ret.match(/\n$/) && ret.length > 1) {
     ret += '\n';

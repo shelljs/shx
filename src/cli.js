@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { shx } from './shx';
 import minimist from 'minimist';
+import { shx } from './shx';
 import { shouldReadStdin } from './config';
 
 const parsedArgs = minimist(process.argv.slice(2), { stopEarly: true, boolean: true });

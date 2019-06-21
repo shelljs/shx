@@ -15,4 +15,3 @@ plugin.register('false', shellFalse, {
   allowGlobbing: false,
   wrapOutput: true,
 });
-
