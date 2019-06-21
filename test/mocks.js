@@ -7,22 +7,23 @@ const oldConsoleError = console.error;
 const oldStdoutWrite = process.stdout.write;
 const oldProcessExit = process.exit;
 
-const consoleLog = (...msgs) => {      // mock console.log
+const consoleLog = (...msgs) => { // mock console.log
   stdoutValue += `${msgs.join(' ')}\n`;
 };
 
-const consoleError = (...msgs) => {    // mock console.error
+const consoleError = (...msgs) => { // mock console.error
   stderrValue += `${msgs.join(' ')}\n`;
 };
 
-const stdoutWrite = (msg) => {         // mock process.stdout.write
+const stdoutWrite = (msg) => { // mock process.stdout.write
   stdoutValue += msg;
   return true;
 };
 
-const processExit = (retCode) => {     // mock process.exit
-  const e = { msg: 'process.exit was called',
-              code: retCode || 0,
+const processExit = (retCode) => { // mock process.exit
+  const e = {
+    msg: 'process.exit was called',
+    code: retCode || 0,
   };
   throw e;
 };

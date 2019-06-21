@@ -15,8 +15,8 @@ function checkReadme(minNodeVersion) {
   var start = '<!-- start minVersion -->';
   var stop = '<!-- stop minVersion -->';
   var formattedMinVersion = '`v' + minNodeVersion + '`';
-  var expectedReadmeRegex = new RegExp(
-      start + '\\s*' + formattedMinVersion + '\\s*' + stop, '');
+  var expectedReadmeRegex = new RegExp(start + '\\s*' + formattedMinVersion
+    + '\\s*' + stop, '');
   var readme = path.join(__dirname, '..', 'README.md');
   var match = shell.grep(expectedReadmeRegex, readme);
   if (!match.toString().trim()) {
@@ -58,11 +58,11 @@ function checkTravis(minNodeVersion, maxNodeVersion, travisYaml) {
 
 function checkAppveyor(minNodeVersion, maxNodeVersion, appveyorYaml) {
   var expectedAppveyorVersions = range(minNodeVersion, maxNodeVersion)
-      .map(num => ({ nodejs_version: num.toString() }))
-      .reverse(); // Arbitrarily, we store appveyor in reverse order.
+    .map(num => ({ nodejs_version: num.toString() }))
+    .reverse(); // Arbitrarily, we store appveyor in reverse order.
   var msg = 'Check Appveyor environment.matrix versions';
   assertDeepEquals(appveyorYaml.environment.matrix, expectedAppveyorVersions,
-      msg);
+    msg);
 }
 
 try {
