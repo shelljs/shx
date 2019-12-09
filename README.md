@@ -80,9 +80,44 @@ However, `shx` is ideal for one-liners inside `package.json`:
 }
 ```
 
-## Unsupported Commands
+**Tip:** because Windows treats single quotes (ex. `'some string'`) differently
+than double quotes, [we
+recommend](https://github.com/shelljs/shx/issues/165#issuecomment-563127983)
+wrapping your arguments in double quotes for cross platform compatibility (ex.
+`"some string"`).
 
-Due to the differences in execution environments between ShellJS and `shx` (JS vs CLI) some commands are not supported:
+## Command reference
+
+Shx exposes [most ShellJS
+commands](https://github.com/shelljs/shelljs#command-reference). If a command is
+not listed here, assume it's supported!
+
+### sed
+
+Shx provides unix-like syntax on top of `shell.sed()`. So ShellJS code like:
+
+```js
+shell.sed('-i', /original string/g, 'replacement', 'filename.txt');
+```
+
+would turn into the following Shx command:
+
+```sh
+shx sed -i "s/original string/replacement/g" filename.txt
+```
+
+**Note:** like unix `sed`, `shx sed` treats `/` as a special character, and
+[this must be
+escaped](https://github.com/shelljs/shx/issues/169#issuecomment-563013849) (as
+`\/` in the shell, or `\\/` in `package.json`) if you intend to use this
+character in either the regex or replacement string. Do **not** escape `/`
+characters in the file path.
+
+### Unsupported Commands
+
+As mentioned above, most ShellJS commands are supported in ShellJS. Due to the
+differences in execution environments between ShellJS and `shx` (JS vs CLI) the
+following commands are not supported:
 
 | Unsupported command | Recommend workaround |
 | ------------------- | -------------------- |
