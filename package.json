@@ -2,6 +2,7 @@
   "name": "shx",
   "version": "0.3.2",
   "description": "Portable Shell Commands for Node",
+  "main": "lib/shx.js",
   "bin": {
     "shx": "lib/cli.js"
   },
