@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "minimist": "^1.2.3",
-    "shelljs": "^0.8.1"
+    "shelljs": "^0.8.4"
   },
   "engines": {
     "node": ">=6"
