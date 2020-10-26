@@ -8,8 +8,8 @@ var yaml = require('js-yaml');
 var shell = require('shelljs');
 
 // This is the authoritative list of supported node versions.
-var MIN_NODE_VERSION = 6;
-var MAX_NODE_VERSION = 10;
+var MIN_NODE_VERSION = 8;
+var MAX_NODE_VERSION = 14;
 
 function checkReadme(minNodeVersion) {
   var start = '<!-- start minVersion -->';
@@ -78,6 +78,8 @@ try {
   var appveyorFileName = path.join(__dirname, '..', 'appveyor.yml');
   var appveyorYaml = yaml.safeLoad(shell.cat(appveyorFileName));
   checkAppveyor(MIN_NODE_VERSION, MAX_NODE_VERSION, appveyorYaml);
+  console.log('All files look good (this project supports v'
+      + MIN_NODE_VERSION + '-v' + MAX_NODE_VERSION + ')!');
 } catch (e) {
   console.error('Please check the files which declare our Node version');
   console.error('support, as something is out-of-sync. This script failed');
