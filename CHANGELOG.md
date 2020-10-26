@@ -2,7 +2,43 @@
 
 ## [Unreleased](https://github.com/shelljs/shx/tree/HEAD)
 
-[Full Changelog](https://github.com/shelljs/shx/compare/v0.3.1...HEAD)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.3.3...HEAD)
+
+**Closed issues:**
+
+- New release with ShellJS v0.8.4 [\#185](https://github.com/shelljs/shx/issues/185)
+
+## [v0.3.3](https://github.com/shelljs/shx/tree/v0.3.3) (2020-10-26)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.3.2...v0.3.3)
+
+**Closed issues:**
+
+- Npm package should always have a main module [\#180](https://github.com/shelljs/shx/issues/180)
+- shx stop working after a new library is added within package.json file [\#176](https://github.com/shelljs/shx/issues/176)
+- suggestion - expose commands directly \(`ls` instead of `shx ls`\) [\#174](https://github.com/shelljs/shx/issues/174)
+- Can I replace bash prompt with shx ? If so, how ? [\#171](https://github.com/shelljs/shx/issues/171)
+- sed can't replace files in a different directory [\#165](https://github.com/shelljs/shx/issues/165)
+- Issues running NPM script on Windows 10 [\#164](https://github.com/shelljs/shx/issues/164)
+- rm -rf random fails on windows [\#160](https://github.com/shelljs/shx/issues/160)
+- sed: option not recognized: n [\#147](https://github.com/shelljs/shx/issues/147)
+- Remove es6-object-assign dependency [\#146](https://github.com/shelljs/shx/issues/146)
+
+**Merged pull requests:**
+
+- Update shelljs to avoid circular dependency warnings on Node 14 [\#184](https://github.com/shelljs/shx/pull/184) ([Pomax](https://github.com/Pomax))
+- Upgrade minimist to avoid security vulnerability [\#179](https://github.com/shelljs/shx/pull/179) ([mondeja](https://github.com/mondeja))
+- docs\(sed\): document sed syntax, quoting, and escaping slash [\#170](https://github.com/shelljs/shx/pull/170) ([nfischer](https://github.com/nfischer))
+- chore\(deps\): update deps [\#161](https://github.com/shelljs/shx/pull/161) ([nfischer](https://github.com/nfischer))
+- chore\(node\): drop node v4 and v5 \(\#917\) [\#157](https://github.com/shelljs/shx/pull/157) ([nfischer](https://github.com/nfischer))
+- chore: script to bump supported node versions [\#156](https://github.com/shelljs/shx/pull/156) ([nfischer](https://github.com/nfischer))
+- chore\(ci\): switch to node language for travis [\#155](https://github.com/shelljs/shx/pull/155) ([nfischer](https://github.com/nfischer))
+- chore\(npm\): remove lockfile [\#154](https://github.com/shelljs/shx/pull/154) ([nfischer](https://github.com/nfischer))
+- chore: update dev dependency [\#153](https://github.com/shelljs/shx/pull/153) ([nfischer](https://github.com/nfischer))
+- chore: remove es6-object-assign dependency [\#152](https://github.com/shelljs/shx/pull/152) ([nfischer](https://github.com/nfischer))
+- chore\(ci\): fix codecov [\#150](https://github.com/shelljs/shx/pull/150) ([nfischer](https://github.com/nfischer))
+
+## [v0.3.2](https://github.com/shelljs/shx/tree/v0.3.2) (2018-07-11)
+[Full Changelog](https://github.com/shelljs/shx/compare/v0.3.1...v0.3.2)
 
 **Closed issues:**
 
