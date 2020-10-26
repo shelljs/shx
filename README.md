@@ -10,7 +10,7 @@
 commands, providing an easy solution for simple Unix-like, cross-platform
 commands in npm package scripts.
 
-`shx` is proudly tested on every node release since <!-- start minVersion -->`v6`<!-- stop minVersion -->!
+`shx` is proudly tested on every node release since <!-- start minVersion -->`v8`<!-- stop minVersion -->!
 
 ## Difference Between ShellJS and shx
 
