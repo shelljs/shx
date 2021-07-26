@@ -115,8 +115,8 @@ export function shx(argv) {
     code = ret ? 0 : 1;
   }
 
-  // Check for negation flag, and flip the code value 
-  if(parsedArgs.negate === true) {
+  // Check for negation flag, and flip the code value
+  if (parsedArgs.negate === true) {
     code = (code + 1) % 2;
   }
 
