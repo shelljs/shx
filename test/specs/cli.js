@@ -134,6 +134,15 @@ describe('cli', () => {
       output.code.should.equal(2);
     });
 
+    it('uses --negate to allows for "not" conditions ', () => {
+      const woNegate = cli('test', '-d', 'fakeDirName');
+      woNegate.code.should.equal(1);
+      const wNegate = cli('--negate', 'test', '-d', 'fakeDirName');
+      wNegate.stdout.should.equal('');
+      wNegate.stderr.should.equal('');
+      wNegate.code.should.equal(0);
+    });
+
     it('adds flags to the help output', () => {
       const output = cli('help');
       output.stderr.should.equal('');
