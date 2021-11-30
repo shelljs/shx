@@ -73,7 +73,7 @@ describe('cli', () => {
     output.code.should.equal(EXIT_CODES.SHX_ERROR);
   });
 
-  it('fails for blacklisted commands', () => {
+  it('fails for blocked commands', () => {
     const output = cli('cd', 'src');
     output.stdout.should.equal('');
     output.stderr.should.match(/Warning: shx cd is not supported\n/);
