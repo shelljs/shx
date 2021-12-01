@@ -3,7 +3,7 @@ import minimist from 'minimist';
 import path from 'path';
 import fs from 'fs';
 import help from './help';
-import { CMD_BLACKLIST, EXIT_CODES, CONFIG_FILE } from './config';
+import { CMD_BLOCKLIST, EXIT_CODES, CONFIG_FILE } from './config';
 import { printCmdRet } from './printCmdRet';
 
 shell.help = help;
@@ -81,7 +81,7 @@ export function shx(argv) {
     console.error(`Error: Invalid ShellJS command: ${fnName}.`);
     console.error(help());
     return EXIT_CODES.SHX_ERROR;
-  } else if (CMD_BLACKLIST.indexOf(fnName) > -1) {
+  } else if (CMD_BLOCKLIST.indexOf(fnName) > -1) {
     console.error(`Warning: shx ${fnName} is not supported`);
     console.error('Please run `shx help` for a list of commands.');
     return EXIT_CODES.SHX_ERROR;
