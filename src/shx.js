@@ -117,7 +117,7 @@ export function shx(argv) {
 
   // Check for negation flag, and flip the code value
   if (parsedArgs.negate === true) {
-    code = (code + 1) % 2;
+    code = Number(!code);
   }
 
   if (typeof code === 'number') {
