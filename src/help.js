@@ -1,12 +1,12 @@
 import shell from 'shelljs';
-import { CMD_BLACKLIST, OPTION_BLACKLIST } from './config';
+import { CMD_BLOCKLIST, OPTION_BLOCKLIST } from './config';
 
 // Global options defined directly in shx.
 const locallyDefinedOptions = ['version'];
 
 const shxOptions = Object.keys(shell.config)
   .filter(key => typeof shell.config[key] !== 'function')
-  .filter(key => OPTION_BLACKLIST.indexOf(key) === -1)
+  .filter(key => OPTION_BLOCKLIST.indexOf(key) === -1)
   .concat(locallyDefinedOptions)
   .map(key => `    * --${key}`);
 
@@ -14,7 +14,7 @@ export default () => {
   // Note: compute this at runtime so that we have all plugins loaded.
   const commandList = Object.keys(shell)
     .filter(cmd => typeof shell[cmd] === 'function')
-    .filter(cmd => CMD_BLACKLIST.indexOf(cmd) === -1)
+    .filter(cmd => CMD_BLOCKLIST.indexOf(cmd) === -1)
     .map(cmd => `    * ${cmd}`);
 
   return `

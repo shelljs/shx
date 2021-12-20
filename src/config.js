@@ -6,7 +6,7 @@ export const EXIT_CODES = {
   SUCCESS: 0,
 };
 
-export const CMD_BLACKLIST = [
+export const CMD_BLOCKLIST = [
   'cd',
   'pushd',
   'popd',
@@ -17,7 +17,7 @@ export const CMD_BLACKLIST = [
   'ShellString',
 ];
 
-export const OPTION_BLACKLIST = [
+export const OPTION_BLOCKLIST = [
   'globOptions', // we don't have good control over globbing in the shell
   'execPath', // we don't currently support exec
   'bufLength', // we don't use buffers in shx
