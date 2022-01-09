@@ -64,15 +64,15 @@
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "rimraf": "^2.5.2",
-    "shelljs-changelog": "^0.2.0",
-    "shelljs-plugin-open": "^0.2.0",
-    "shelljs-release": "^0.3.0",
+    "shelljs-changelog": "^0.2.6",
+    "shelljs-plugin-open": "^0.2.1",
+    "shelljs-release": "^0.5.1",
     "should": "^13.2.3",
     "watch": "^1.0.2"
   },
   "dependencies": {
     "minimist": "^1.2.3",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.5"
   },
   "engines": {
     "node": ">=8"

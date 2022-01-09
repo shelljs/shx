@@ -6,6 +6,7 @@ lib
 .nyc_output
 coverage
 .shxrc.json
+package-lock.json
 
 # Linux
 *~
