@@ -8,6 +8,14 @@
 
 - New release with ShellJS v0.8.4 [\#185](https://github.com/shelljs/shx/issues/185)
 
+**Merged pull requests:**
+
+- chore: add back node v6 support [\#196](https://github.com/shelljs/shx/pull/196) ([nfischer](https://github.com/nfischer))
+- chore: update dependencies [\#195](https://github.com/shelljs/shx/pull/195) ([nfischer](https://github.com/nfischer))
+- chore: switch to GitHub Actions [\#194](https://github.com/shelljs/shx/pull/194) ([nfischer](https://github.com/nfischer))
+- refactor: rename "blacklist" -\> "blocklist" [\#193](https://github.com/shelljs/shx/pull/193) ([nfischer](https://github.com/nfischer))
+- chore: change supported node versions [\#186](https://github.com/shelljs/shx/pull/186) ([nfischer](https://github.com/nfischer))
+
 ## [v0.3.3](https://github.com/shelljs/shx/tree/v0.3.3) (2020-10-26)
 [Full Changelog](https://github.com/shelljs/shx/compare/v0.3.2...v0.3.3)
 
