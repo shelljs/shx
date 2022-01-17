@@ -23,7 +23,6 @@
     "release:minor": "shelljs-release minor",
     "release:patch": "shelljs-release patch",
     "changelog": "shelljs-changelog",
-    "codecov": "codecov",
     "test": "nyc --reporter=text --reporter=lcov mocha",
     "test:watch": "concurrently -rk 'npm run test --silent -- -w' 'npm run lint:watch'"
   },
@@ -55,7 +54,6 @@
     "babel-cli": "^6.6.5",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.7.2",
-    "codecov": "^3.0.2",
     "concurrently": "^2.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
