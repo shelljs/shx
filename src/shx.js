@@ -94,16 +94,9 @@ export function shx(argv) {
 
   // Workaround for sed syntax
   let ret;
-  if (fnName === 'sed') {
-    const newArgs = convertSedRegex(args);
-    ret = shell[fnName].apply(input, newArgs);
-  } else {
-    ret = shell[fnName].apply(input, args);
-  }
-  if (ret === null) ret = shell.ShellString('', '', 1);
+  ret = shell[fnName].apply(input, fnName === 'sed' ? convertSedRegex(args) : args);
 
-  /* instanbul ignore next */
-  let code = Object.prototype.hasOwnProperty.call(ret, 'code') && ret.code;
+  if (ret === null) ret = shell.ShellString('', '', 1);
 
   if ((fnName === 'pwd' || fnName === 'which') && !ret.match(/\n$/) && ret.length > 1) {
     ret += '\n';
@@ -112,8 +105,11 @@ export function shx(argv) {
   // echo already prints
   if (fnName !== 'echo') printCmdRet(ret);
   if (typeof ret === 'boolean') {
-    code = ret ? 0 : 1;
+    return ret ? 0 : 1;
   }
+
+  /* instanbul ignore next */
+  const code = Object.prototype.hasOwnProperty.call(ret, 'code') && ret.code;
 
   if (typeof code === 'number') {
     return code;
