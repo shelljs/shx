@@ -20,7 +20,7 @@ const run = (input) => {
 if (shouldReadStdin(parsedArgs._)) {
   // Read all stdin first, and then pass that onto ShellJS
   const chunks = [];
-  process.stdin.on('data', data => chunks.push(data));
+  process.stdin.on('data', (data) => chunks.push(data));
   process.stdin.on('end', () => run(chunks.join('')));
 } else {
   // There's no stdin, so we can immediately invoke the ShellJS function
