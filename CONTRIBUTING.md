@@ -2,7 +2,7 @@
 
 ## Releasing
 
-On the latest clean `master`:
+On the latest clean `main`:
 
 ```
 npm run release:major
