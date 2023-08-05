@@ -1,6 +1,6 @@
-import * as shell from 'shelljs';
 import fs from 'fs';
 import path from 'path';
+import * as shell from 'shelljs';
 import { shx } from '../../src/shx';
 import { EXIT_CODES, CONFIG_FILE, shouldReadStdin } from '../../src/config';
 import * as mocks from '../mocks';
