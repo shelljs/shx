@@ -71,19 +71,26 @@ platform-independent scripts, we recommend you go with that.
 
 However, `shx` is ideal for one-liners inside `package.json`:
 
-```javascript
+```json
 {
   "scripts": {
-    "clean": "shx rm -rf build dist && shx echo Done"
+    "clean": "shx rm -rf \"build/**/*.js\" \"build/output\" && shx echo \"Done cleaning\""
   }
 }
 ```
 
-**Tip:** because Windows treats single quotes (ex. `'some string'`) differently
-than double quotes, [we
-recommend](https://github.com/shelljs/shx/issues/165#issuecomment-563127983)
-wrapping your arguments in double quotes for cross platform compatibility (ex.
-`"some string"`).
+It's safe to use `&&` and `||` operators in npm package scripts. These will be
+interpreted by the operating system's shell (`sh` on Unix, `cmd.exe` on
+Windows). If you're using glob operators like `*` or `**`, then we recommend to
+**put these in double quotes**, which ensures that `shx` will expand the glob
+rather than the operating system shell.
+
+> [!IMPORTANT]
+> Windows treats single quotes (ex. `'some string'`) differently than double
+> quotes.
+> [We recommend](https://github.com/shelljs/shx/issues/165#issuecomment-563127983)
+> wrapping your arguments in **escaped double quotes** so that your code is
+> compatible cross platform (ex. `"clean": "shx echo \"some string\""`).
 
 ## Command reference
 
