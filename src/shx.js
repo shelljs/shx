@@ -1,7 +1,7 @@
-import shell from 'shelljs';
-import minimist from 'minimist';
 import path from 'path';
 import fs from 'fs';
+import shell from 'shelljs';
+import minimist from 'minimist';
 import help from './help';
 import { CMD_BLOCKLIST, EXIT_CODES, CONFIG_FILE } from './config';
 import { printCmdRet } from './printCmdRet';
