@@ -59,6 +59,8 @@ sub
 $ shx rm -r sub                 # options work as well
 
 $ shx --silent ls fakeFileName  # silence error output
+
+$ shx --negate test -d dir      # Negate status code output for boolean conditions
 ```
 
 All commands internally call the ShellJS corresponding function, guaranteeing
