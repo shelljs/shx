@@ -121,7 +121,7 @@ characters in the file path.
 
 ### Unsupported Commands
 
-As mentioned above, most ShellJS commands are supported in ShellJS. Due to the
+As mentioned above, most ShellJS commands are supported in `shx`. Due to the
 differences in execution environments between ShellJS and `shx` (JS vs CLI) the
 following commands are not supported:
 
