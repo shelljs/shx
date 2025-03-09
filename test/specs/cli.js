@@ -122,7 +122,7 @@ describe('cli', () => {
   describe('global flags', () => {
     it('supports --version', () => {
       const output = cli('--version');
-      output.stdout.should.match(/shx v\S+\n/);
+      output.stdout.should.match(/shx v\S+ \(using ShellJS v\S+\)\n/);
       output.stderr.should.equal('');
       output.code.should.equal(0);
     });
