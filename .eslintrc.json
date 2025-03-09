@@ -5,6 +5,8 @@
   "extends": "airbnb-base",
   "rules": {
     "curly": [2, "multi-line"],
+    "function-call-argument-newline": 0,
+    "function-paren-newline": 0,
     "global-require": 0,
     "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": 0,
