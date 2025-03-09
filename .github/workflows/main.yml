@@ -49,6 +49,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run test
+      - run: npm run build
       - run: npm run check-node-support
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
