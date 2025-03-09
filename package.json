@@ -12,19 +12,14 @@
     "check-node-support": "node scripts/check-node-support",
     "prebuild": "rimraf lib",
     "build": "babel src -d lib",
-    "build:watch": "npm run build -- -w",
-    "dev": "concurrently -rk 'npm run build:watch' 'npm run lint:watch'",
     "lint": "eslint .",
-    "lint:fix": "npm run lint --silent -- --fix",
-    "lint:watch": "watch 'npm run lint --silent' src test",
     "prepublish": "npm run build",
-    "posttest": "npm run lint --silent",
+    "posttest": "npm run lint",
     "release:major": "shelljs-release major",
     "release:minor": "shelljs-release minor",
     "release:patch": "shelljs-release patch",
     "changelog": "shelljs-changelog",
-    "test": "nyc --reporter=text --reporter=lcov mocha",
-    "test:watch": "concurrently -rk 'npm run test --silent -- -w' 'npm run lint:watch'"
+    "test": "nyc --reporter=text --reporter=lcov mocha"
   },
   "repository": {
     "type": "git",
@@ -54,7 +49,6 @@
     "babel-cli": "^6.6.5",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.7.2",
-    "concurrently": "^5.3.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-import-resolver-node": "0.3.7",
@@ -66,8 +60,7 @@
     "shelljs-changelog": "^0.2.6",
     "shelljs-plugin-open": "^0.3.0",
     "shelljs-release": "^0.5.2",
-    "should": "^13.2.3",
-    "watch": "^1.0.2"
+    "should": "^13.2.3"
   },
   "dependencies": {
     "minimist": "^1.2.6",
