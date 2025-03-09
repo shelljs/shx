@@ -43,8 +43,7 @@ export function shx(argv) {
   const parsedArgs = minimist(argv.slice(2), { stopEarly: true, boolean: true });
   if (parsedArgs.version) {
     const shxVersion = require('../package.json').version;
-    const shelljsVersion = require('shelljs/package.json').version;
-    console.log(`shx v${shxVersion} (using ShellJS v${shelljsVersion})`);
+    console.log(`shx v${shxVersion}`);
     return EXIT_CODES.SUCCESS;
   }
   const [fnName, ...args] = parsedArgs._;

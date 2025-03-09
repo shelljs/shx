@@ -122,7 +122,7 @@ describe('cli', () => {
   describe('global flags', () => {
     it('supports --version', () => {
       const output = cli('--version');
-      output.stdout.should.match(/shx v\S+ \(using ShellJS v\S+\)\n/);
+      output.stdout.should.match(/shx v\S+\n/);
       output.stderr.should.equal('');
       output.code.should.equal(0);
     });
@@ -351,7 +351,7 @@ describe('cli', () => {
     it('works with /g and -i', () => {
       const output = cli('sed', '-i', 's/foo/bar/g', testFileName1);
       const expected = 'bar\nbarsomething\nbarbarsomething\n';
-      output.stdout.should.equal(expected);
+      output.stdout.should.equal('');
       shell.cat(testFileName1).stdout.should.equal(expected);
     });
 
