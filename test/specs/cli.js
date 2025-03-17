@@ -134,6 +134,28 @@ describe('cli', () => {
       output.code.should.equal(2);
     });
 
+    it('uses --negate to "NOT" a non-zero output ', () => {
+      const withoutNegate = cli('test', '-d', 'fakeDirName');
+      withoutNegate.code.should.equal(1);
+      const withNegate = cli('--negate', 'test', '-d', 'fakeDirName');
+      withNegate.stdout.should.equal('');
+      withNegate.stderr.should.equal('');
+      withNegate.code.should.equal(0);
+    });
+
+    it('uses --negate to "NOT" a "0 output ', () => {
+      const withoutNegate = cli('true');
+      // Sanity check
+      withoutNegate.code.should.equal(0);
+      // Minifist opts.boolean always treat --* as boolean
+      // Thus only using "--negate true" will be interpreted as "--negate=true"
+      // without any actual command. Hence --negate true true
+      const withNegate = cli('--negate', 'true', 'true');
+      withNegate.stdout.should.equal('');
+      withNegate.stderr.should.equal('');
+      withNegate.code.should.equal(1);
+    });
+
     it('adds flags to the help output', () => {
       const output = cli('help');
       output.stderr.should.equal('');

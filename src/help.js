@@ -2,7 +2,7 @@ import shell from 'shelljs';
 import { CMD_BLOCKLIST, OPTION_BLOCKLIST } from './config';
 
 // Global options defined directly in shx.
-const locallyDefinedOptions = ['version'];
+const locallyDefinedOptions = ['version', 'negate'];
 
 const shxOptions = Object.keys(shell.config)
   .filter((key) => typeof shell.config[key] !== 'function')

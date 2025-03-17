@@ -115,6 +115,11 @@ export function shx(argv) {
     code = ret ? 0 : 1;
   }
 
+  // Check for negation flag, and flip the code value
+  if (parsedArgs.negate === true) {
+    code = Number(!code);
+  }
+
   if (typeof code === 'number') {
     return code;
   } else if (shell.error()) {
