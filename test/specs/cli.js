@@ -145,12 +145,11 @@ describe('cli', () => {
 
     it('uses --negate to "NOT" a "0 output ', () => {
       const withoutNegate = cli('true');
-      // Sanity check
       withoutNegate.code.should.equal(0);
-      // Minifist opts.boolean always treat --* as boolean
-      // Thus only using "--negate true" will be interpreted as "--negate=true"
-      // without any actual command. Hence --negate true true
-      const withNegate = cli('--negate', 'true', 'true');
+      // We need an extra '--' otherwise Minimist will interprt this like `shx
+      // --negate=true` without invoking the actual 'true' subcommand. This is
+      // because of Minimist's opts.boolean option.
+      const withNegate = cli('--negate', '--', 'true');
       withNegate.stdout.should.equal('');
       withNegate.stderr.should.equal('');
       withNegate.code.should.equal(1);
@@ -160,8 +159,9 @@ describe('cli', () => {
       const output = cli('help');
       output.stderr.should.equal('');
       output.stdout.should.match(/Usage/); // make sure help is printed
-      output.stdout.should.match(/\* --verbose/);
+      output.stdout.should.match(/\* --negate/);
       output.stdout.should.match(/\* --silent/);
+      output.stdout.should.match(/\* --verbose/);
       output.stdout.should.match(/\* --version/);
     });
   });

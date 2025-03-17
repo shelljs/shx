@@ -60,7 +60,7 @@ $ shx rm -r sub                 # options work as well
 
 $ shx --silent ls fakeFileName  # silence error output
 
-$ shx --negate test -d dir      # Negate status code output for boolean conditions
+$ shx --negate test -d dir      # Negate status code output (e.g., failed commands will now have status 0)
 ```
 
 All commands internally call the ShellJS corresponding function, guaranteeing
@@ -145,10 +145,13 @@ supported options:
 
 | [`set`](https://github.com/shelljs/shelljs#setoptions) flag | [`shell.config`](https://github.com/shelljs/shelljs#configuration) setting | shx command | Effect |
 |:---:| --- | --- | --- |
-| `-e` | `config.fatal = true` | Not supported | Exit upon first error |
-| `-v` | `config.verbose = true` | `shx --verbose cd foo` | Log the command as it's run |
-| `-f` | `config.noglob = true` | `shx --noglob cat '*.txt'` | Don't expand wildcards |
-| N/A | `config.silent = true` | `shx --silent cd noexist` | Don't show error output |
+| `-e` | `config.fatal = true` | Not supported | Exit upon first error. |
+| `-v` | `config.verbose = true` | `shx --verbose cd foo` | Log the command as it's run. |
+| `-f` | `config.noglob = true` | `shx --noglob cat '*.txt'` | Don't expand wildcards. |
+| N/A | `config.silent = true` | `shx --silent cd noexist` | Don't show error output. |
+| N/A | N/A | `shx --negate test -d dir` | Runs the specified command but negates the exit status. Failed command = status 0, successful command = status 1. |
+| N/A | N/A | `shx --help` | Show help text. |
+| N/A | N/A | `shx --version` | Print the shx version. |
 
 ## Team
 
