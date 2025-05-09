@@ -1,4 +1,4 @@
-import plugin from 'shelljs/plugin';
+const plugin = require('shelljs/plugin');
 
 const shellTrue = () => '';
 
