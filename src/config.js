@@ -54,6 +54,15 @@ export const shouldReadStdin = (args) => {
   if (parsedArgs.n && (cmd === 'head' || cmd === 'tail')) {
     requiredNumArgs++;
   }
+  if ((parsedArgs.A || parsedArgs.B || parsedArgs.C) && cmd === 'grep') {
+    requiredNumArgs++;
+  }
 
-  return Boolean(!process.stdin.isTTY && parsedArgs._.length < requiredNumArgs);
+  if (process.stdin.isTTY) {
+    return false;
+  }
+  if (parsedArgs._.length >= requiredNumArgs) {
+    return false;
+  }
+  return true;
 };

@@ -193,6 +193,9 @@ describe('cli', () => {
       shouldReadStdin(['head', '-n', '1']).should.equal(true);
       shouldReadStdin(['tail', '-n', '1']).should.equal(true);
       shouldReadStdin(['grep', '-i', 'a.*z']).should.equal(true);
+      shouldReadStdin(['grep', '-A', 2, 'a.*z']).should.equal(true);
+      shouldReadStdin(['grep', '-B', 2, 'a.*z']).should.equal(true);
+      shouldReadStdin(['grep', '-C', 2, 'a.*z']).should.equal(true);
     });
 
     it('does not read stdin if process.stdin is a TTY', () => {
@@ -433,9 +436,19 @@ describe('cli', () => {
     afterEach(() => {
       shell.rm('-f', testFileName);
     });
+
     it('works with regex syntax', () => {
       const ret = cli('grep', 'fo*', testFileName);
       ret.stdout.should.equal('foo\nf\nsomething foo\n');
+    });
+
+    it('correctly parses -A/-B/-C flags', () => {
+      let ret = cli('grep', '-A', '1', 'foo', testFileName);
+      ret.stdout.should.equal('foo\nf\n--\nsomething foo\n');
+      ret = cli('grep', '-B', '1', 'foo', testFileName);
+      ret.stdout.should.equal('1st line\nfoo\n--\ndoes not match\nsomething foo\n');
+      ret = cli('grep', '-C', '1', 'foo', testFileName);
+      ret.stdout.should.equal('1st line\nfoo\nf\ndoes not match\nsomething foo\n');
     });
   });
 
