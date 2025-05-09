@@ -33,9 +33,9 @@ const resetValues = () => {
   stderrValue = '';
 };
 
-export const stdout = () => stdoutValue;
-export const stderr = () => stderrValue;
-export const stdin = (val) => {
+exports.stdout = () => stdoutValue;
+exports.stderr = () => stderrValue;
+exports.stdin = (val) => {
   // If called with no arg, return the mocked stdin. Otherwise set stdin to that
   // arg
   if (val === undefined) return stdinValue;
@@ -43,7 +43,7 @@ export const stdin = (val) => {
   return null;
 };
 
-export const init = () => {
+exports.init = () => {
   resetValues();
   console.log = consoleLog;
   console.error = consoleError;
@@ -51,7 +51,7 @@ export const init = () => {
   process.exit = processExit;
 };
 
-export const restore = () => {
+exports.restore = () => {
   console.log = oldConsoleLog;
   console.error = oldConsoleError;
   process.stdout.write = oldStdoutWrite;

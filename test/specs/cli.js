@@ -1,10 +1,10 @@
-import fs from 'fs';
-import path from 'path';
-import * as shell from 'shelljs';
-import { shx } from '../../src/shx';
-import { EXIT_CODES, CONFIG_FILE, shouldReadStdin } from '../../src/config';
-import * as mocks from '../mocks';
-import 'should';
+const fs = require('fs');
+const path = require('path');
+const shell = require('shelljs');
+const { shx } = require('../../src/shx');
+const { EXIT_CODES, CONFIG_FILE, shouldReadStdin } = require('../../src/config');
+const mocks = require('../mocks');
+require('should');
 
 /* eslint no-bitwise: "off" */
 /* eslint prefer-numeric-literals: "off" */
