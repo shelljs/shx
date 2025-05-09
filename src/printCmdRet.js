@@ -1,6 +1,6 @@
 // This function takes the raw result of a shelljs command and figures out how to print it.
 // Invoke this *REGARDLESS* of what the command returns, it will figure it out.
-export const printCmdRet = (ret) => {
+exports.printCmdRet = (ret) => {
   // Don't print these types
   if (typeof ret === 'boolean' || !ret) return;
 

@@ -3,17 +3,14 @@
   "version": "0.4.0",
   "description": "Portable Shell Commands for Node",
   "bin": {
-    "shx": "lib/cli.js"
+    "shx": "src/cli.js"
   },
   "files": [
-    "lib"
+    "src"
   ],
   "scripts": {
     "check-node-support": "node scripts/check-node-support",
-    "prebuild": "rimraf lib",
-    "build": "babel src -d lib",
     "lint": "eslint .",
-    "prepublish": "npm run build",
     "posttest": "npm run lint",
     "release:major": "shelljs-release major",
     "release:minor": "shelljs-release minor",
@@ -46,9 +43,6 @@
   },
   "homepage": "https://github.com/shelljs/shx#readme",
   "devDependencies": {
-    "babel-cli": "^6.6.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.7.2",
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-node": "0.3.7",
@@ -56,7 +50,6 @@
     "js-yaml": "^4.1.0",
     "mocha": "^11.1.0",
     "nyc": "^17.1.0",
-    "rimraf": "^5.0.10",
     "shelljs-changelog": "^0.2.6",
     "shelljs-plugin-open": "^0.4.0",
     "shelljs-release": "^0.5.3",

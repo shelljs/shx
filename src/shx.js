@@ -1,10 +1,10 @@
-import path from 'path';
-import fs from 'fs';
-import shell from 'shelljs';
-import minimist from 'minimist';
-import help from './help';
-import { CMD_BLOCKLIST, EXIT_CODES, CONFIG_FILE } from './config';
-import { printCmdRet } from './printCmdRet';
+const path = require('path');
+const fs = require('fs');
+const shell = require('shelljs');
+const minimist = require('minimist');
+const help = require('./help');
+const { CMD_BLOCKLIST, EXIT_CODES, CONFIG_FILE } = require('./config');
+const { printCmdRet } = require('./printCmdRet');
 
 shell.help = help;
 
@@ -39,7 +39,7 @@ const convertSedRegex = (args) => {
   return newArgs;
 };
 
-export function shx(argv) {
+exports.shx = function shx(argv) {
   const parsedArgs = minimist(argv.slice(2), { stopEarly: true, boolean: true });
   if (parsedArgs.version) {
     const shxVersion = require('../package.json').version;
@@ -87,7 +87,14 @@ export function shx(argv) {
     return EXIT_CODES.SHX_ERROR;
   }
 
-  const input = this !== null ? new shell.ShellString(this) : null;
+  // Handle stdin input. This is passed as the 'this' parameter of this
+  // function.
+  let input;
+  if (this === global || this === null) {
+    input = null;
+  } else if (typeof this === 'string' || this instanceof String) {
+    input = new shell.ShellString(this.toString());
+  }
 
   // Set shell.config with parsed options
   Object.assign(shell.config, parsedArgs);
@@ -128,4 +135,4 @@ export function shx(argv) {
   }
 
   return EXIT_CODES.SUCCESS;
-}
+};
