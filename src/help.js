@@ -1,5 +1,5 @@
-import shell from 'shelljs';
-import { CMD_BLOCKLIST, OPTION_BLOCKLIST } from './config';
+const shell = require('shelljs');
+const { CMD_BLOCKLIST, OPTION_BLOCKLIST } = require('./config');
 
 // Global options defined directly in shx.
 const locallyDefinedOptions = ['version', 'negate'];
@@ -10,7 +10,7 @@ const shxOptions = Object.keys(shell.config)
   .concat(locallyDefinedOptions)
   .map((key) => `    * --${key}`);
 
-export default () => {
+module.exports = () => {
   // Note: compute this at runtime so that we have all plugins loaded.
   const commandList = Object.keys(shell)
     .filter((cmd) => typeof shell[cmd] === 'function')

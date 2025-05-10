@@ -1,12 +1,12 @@
-import minimist from 'minimist';
+const minimist = require('minimist');
 
-export const EXIT_CODES = {
+exports.EXIT_CODES = {
   SHX_ERROR: 27, // https://xkcd.com/221/
   CMD_FAILED: 1, // TODO: Once shelljs/shelljs#269 lands, use `error()`
   SUCCESS: 0,
 };
 
-export const CMD_BLOCKLIST = [
+exports.CMD_BLOCKLIST = [
   'cd',
   'pushd',
   'popd',
@@ -17,16 +17,16 @@ export const CMD_BLOCKLIST = [
   'ShellString',
 ];
 
-export const OPTION_BLOCKLIST = [
+exports.OPTION_BLOCKLIST = [
   'globOptions', // we don't have good control over globbing in the shell
   'execPath', // we don't currently support exec
   'bufLength', // we don't use buffers in shx
   'maxdepth', // this option is undocumented, add this back if it makes sense
 ];
 
-export const CONFIG_FILE = '.shxrc.json';
+exports.CONFIG_FILE = '.shxrc.json';
 
-export const SHELLJS_PIPE_INFO = {
+const SHELLJS_PIPE_INFO = {
   cat: { minArgs: 1 },
   grep: { minArgs: 2 },
   head: { minArgs: 1 },
@@ -35,12 +35,13 @@ export const SHELLJS_PIPE_INFO = {
   tail: { minArgs: 1 },
   uniq: { minArgs: 1 },
 };
+exports.SHELLJS_PIPE_INFO = SHELLJS_PIPE_INFO;
 
 // All valid options
 const allOptionsList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   .split('');
 
-export const shouldReadStdin = (args) => {
+exports.shouldReadStdin = (args) => {
   const cmd = args[0];
   const cmdInfo = SHELLJS_PIPE_INFO[cmd];
   const parsedArgs = minimist(args.slice(1), {
