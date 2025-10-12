@@ -153,6 +153,12 @@ supported options:
 | N/A | N/A | `shx --help` | Show help text. |
 | N/A | N/A | `shx --version` | Print the shx version. |
 
+### Plugin support
+
+Did you know that `shx` can also take advantage of all the great
+[ShellJS plugins](https://www.npmjs.com/search?q=keyword%3Ashelljs%2Cplugin)?
+See [PLUGINS.md](./PLUGINS.md) for instructions.
+
 ## Team
 
 | [![Nate Fischer](https://avatars.githubusercontent.com/u/5801521?s=130)](https://github.com/nfischer) | [![Ari Porad](https://avatars1.githubusercontent.com/u/1817508?v=3&s=130)](http://github.com/ariporad) | [![Levi Thomason](https://avatars1.githubusercontent.com/u/5067638?v=3&s=130)](https://github.com/levithomason) |
