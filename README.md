@@ -59,6 +59,7 @@ sub
 $ shx rm -r sub                 # options work as well
 
 $ shx --silent ls fakeFileName  # silence error output
+$ shx --silent ls fakeFileName || shx true  # silence error output and ignore the exit status
 
 $ shx --negate test -d dir      # Negate status code output (e.g., failed commands will now have status 0)
 ```
