@@ -21,7 +21,8 @@ const convertSedRegex = (args) => {
     const match = arg.match(new RegExp(sedPattern));
     if (match && lookingForSubstString) {
       const regexString = match[1].replace(/\\\//g, '/');
-      const replacement = match[2].replace(/\\\//g, '/').replace(/\\./g, '.');
+      // Unescape in one pass so an escaped backslash cannot escape the next character.
+      const replacement = match[2].replace(/\\(.)/g, '$1');
       const regexFlags = match[3];
       if (regexString === '') {
         // Unix sed gives an error if the pattern is the empty string, so we

@@ -401,6 +401,34 @@ describe('cli', () => {
       shell.cat(testFileName4).stdout.should.equal(testContents4);
     });
 
+    it('preserves escaped backslashes in replacement strings', () => {
+      const output = cli('sed', String.raw`s/foo/C:\\temp\\file.txt/`, testFileName1);
+      output.stdout.should.equal(
+        'C:\\temp\\file.txt\nC:\\temp\\file.txtsomething\nC:\\temp\\file.txtfoosomething\n',
+      );
+      output.code.should.equal(0);
+      output.stderr.should.equal('');
+      shell.cat(testFileName1).stdout.should.equal(testContents1);
+    });
+
+    it('unescapes adjacent backslashes and slashes only once', () => {
+      mocks.stdin('foo\n');
+      const output = cli('sed', String.raw`s/foo/\\\/path/g`);
+      output.stdout.should.equal('\\/path\n');
+      output.code.should.equal(0);
+      output.stderr.should.equal('');
+    });
+
+    it('preserves escaped backslashes when replacing in place', () => {
+      const output = cli('sed', '-i', String.raw`s/foo/C:\\temp\\file.txt/g`, testFileName1);
+      shell.cat(testFileName1).stdout.should.equal(
+        'C:\\temp\\file.txt\nC:\\temp\\file.txtsomething\nC:\\temp\\file.txtC:\\temp\\file.txtsomething\n',
+      );
+      output.stdout.should.equal('');
+      output.stderr.should.equal('');
+      output.code.should.equal(0);
+    });
+
     it('works with empty replacement strings (with /g)', () => {
       const output = cli('sed', 's/foo//g', testFileName1);
       output.stdout.should
